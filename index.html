@@ -1,0 +1,412 @@
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mateus de Lima Silva - Full Stack Developer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Orbitron:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<script src="assets/js/tailwind-config.js"></script>
+<link rel="stylesheet" href="assets/css/styles.css">
+
+</head><body class="font-body-base text-body-base relative min-h-screen overflow-x-hidden antialiased loading-active">
+<div id="loading-screen">
+<canvas id="loading-hyperspace"></canvas>
+<div id="opening-text"></div>
+</div>
+<div id="scene-container">
+<div class="scene active" id="scene-hero">
+<canvas class="stars-bg"></canvas>
+</div>
+<div class="scene" id="scene-about">
+<canvas class="stars-bg"></canvas>
+</div>
+<div class="scene" id="scene-pro-projects">
+<canvas class="stars-bg"></canvas>
+</div>
+<div class="scene" id="scene-study-projects">
+<canvas class="stars-bg"></canvas>
+</div>
+<div class="scene" id="scene-contact">
+<canvas class="stars-bg"></canvas>
+</div>
+</div>
+<canvas id="hyperspace-canvas"></canvas>
+<div class="fixed inset-0 scanlines"></div>
+<header class="fixed top-0 w-full border-b border-cyan-500/30 bg-slate-950/60 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.5)] z-50">
+<div class="flex justify-between items-center w-full px-6 py-4 z-50">
+<div class="flex items-center gap-3 text-cyan-400 dark:text-cyan-300 ml-16 md:ml-0">
+<span class="material-symbols-outlined" data-icon="terminal" data-weight="fill" style="font-variation-settings: 'FILL' 1;">terminal</span>
+<span class="font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold text-xl font-black tracking-tighter text-cyan-400 drop-shadow-[0_0_8px_rgba(0,212,255,0.8)]">COMMAND_CENTER_V1.0</span>
+</div>
+<nav class="hidden md:flex gap-8">
+<a class="nav-link text-slate-400 hover:text-cyan-200 transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold hidden" id="btn-home" data-scene="scene-hero" data-target="hero" href="#hero">
+    HOME
+</a>
+<a class="nav-link text-slate-400 hover:text-cyan-200 transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold" data-scene="scene-about" data-target="about" href="#about">
+    ABOUT
+</a>
+<a class="nav-link text-slate-400 hover:text-cyan-200 transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold" data-scene="scene-pro-projects" data-target="pro-projects" href="#pro-projects">
+    ARSENAL
+</a>
+<a class="nav-link text-slate-400 hover:text-cyan-200 transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold" data-scene="scene-study-projects" data-target="study-projects" href="#study-projects">
+    ARCHIVES
+</a>
+<a class="nav-link text-slate-400 hover:text-cyan-200 transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold" data-scene="scene-contact" data-target="contact" href="#contact">
+    COMM-LINK
+</a>
+</nav>
+<button class="md:hidden text-cyan-400 dark:text-cyan-300">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</header>
+<main class="pt-24 pb-20 content-layer">
+<section class="min-h-[80vh] flex flex-col justify-center items-center text-center px-4 md:px-margin relative" id="hero">
+<div class="max-w-container-max mx-auto w-full z-10 space-y-8 bg-surface-dim/30 p-8 rounded-2xl backdrop-blur-sm border border-cyan-500/10 shadow-[0_0_50px_rgba(0,212,255,0.05)]">
+<div class="inline-flex items-center gap-2 px-4 py-2 border border-outline-variant/50 rounded-full bg-surface-container-low/50 backdrop-blur-md mb-6">
+<span class="w-2 h-2 rounded-full bg-secondary-container shadow-[0_0_8px_rgba(239,165,0,0.8)]"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">SYSTEM_ONLINE // STATUS: READY</span>
+</div>
+<h1 class="hero-name mb-4">
+                    Mateus de Lima Silva
+                </h1>
+<p class="font-headline-md text-headline-md text-primary mb-8 font-mono">
+                    &gt; Full Stack Developer | ADS
+                    <span class="inline-block w-3 h-6 bg-primary ml-1 align-middle opacity-80 animate-pulse"></span>
+</p>
+<div class="flex flex-wrap justify-center gap-3 mb-12">
+<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps rounded backdrop-blur-sm">REACT</span>
+<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps rounded backdrop-blur-sm">NODE.JS</span>
+<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps rounded backdrop-blur-sm">TYPESCRIPT</span>
+<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps rounded backdrop-blur-sm">POSTGRESQL</span>
+</div>
+<div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+<div class="saber-btn-wrapper">
+  <button class="saber-btn nav-link" data-scene="scene-pro-projects" data-target="pro-projects">
+    View Projects <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+  </button>
+  <div class="saber-placeholder">
+    <div class="saber-hilt"></div>
+    <div class="saber-blade"></div>
+  </div>
+  <canvas class="saber-cut-canvas"></canvas>
+</div>
+<div class="saber-btn-wrapper">
+  <button class="saber-btn nav-link" data-scene="scene-contact" data-target="contact">
+    Contact <span class="material-symbols-outlined text-sm" data-icon="mail">mail</span>
+  </button>
+  <div class="saber-placeholder">
+    <div class="saber-hilt"></div>
+    <div class="saber-blade" style="box-shadow: 0 0 10px #efa500, 0 0 20px #efa500, 0 0 30px #efa500, 0 0 40px #efa500;"></div>
+  </div>
+  <canvas class="saber-cut-canvas"></canvas>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 px-4 md:px-margin max-w-container-max mx-auto relative z-10" id="about">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-5 relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary-container to-secondary-container opacity-20 blur-xl group-hover:opacity-40 transition-opacity"></div>
+<div class="relative border border-primary-container/30 bg-surface-container-low/80 backdrop-blur-xl p-2 h-full aspect-square overflow-hidden">
+<div class="absolute top-2 right-2 font-label-caps text-[10px] text-primary-container/70">ID: MLS-88</div>
+<img alt="Profile photo" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500 opacity-80" src="assets/images/ChatGPT Image 4 de mai. de 2026, 10_28_18.png"/>
+<div class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-background to-transparent"></div>
+</div>
+</div>
+<div class="md:col-span-7 space-y-8 p-8 border border-outline-variant/30 bg-surface-container/40 backdrop-blur-lg shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-3 border-b border-outline-variant/30 pb-4">
+<span class="material-symbols-outlined text-primary-container" data-icon="person">person</span>
+                        PROFILE DATA
+                    </h2>
+<p class="font-body-base text-body-base text-on-surface-variant">
+                        Graduated in Analysis and Systems Development. Passionate about building robust, scalable applications from the ground up. I thrive in environments that challenge me to solve complex architectural problems using modern web technologies.
+                    </p>
+<div class="space-y-6 pt-4">
+<div>
+<div class="flex justify-between font-label-caps text-label-caps text-on-surface mb-2">
+<span>FRONT-END</span>
+<span class="text-primary-container">90%</span>
+</div>
+<div class="h-1 w-full bg-surface-variant relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-[90%] bg-primary-container shadow-[0_0_10px_#00d4ff]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-caps text-label-caps text-on-surface mb-2">
+<span>BACK-END</span>
+<span class="text-primary-container">85%</span>
+</div>
+<div class="h-1 w-full bg-surface-variant relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-[85%] bg-primary-container shadow-[0_0_10px_#00d4ff]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-caps text-label-caps text-on-surface mb-2">
+<span>DATABASE</span>
+<span class="text-primary-container">80%</span>
+</div>
+<div class="h-1 w-full bg-surface-variant relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-[80%] bg-primary-container shadow-[0_0_10px_#00d4ff]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 px-4 md:px-margin max-w-container-max mx-auto relative z-10" id="pro-projects">
+  <h2 class="font-display-lg text-4xl text-on-surface text-center mb-12">PROJECT ARSENAL</h2>
+  
+  <div class="battle-grid-wrapper">
+    <canvas id="project-battle-canvas"></canvas>
+    
+    <div class="imperial-fleet-grid">
+      <div class="imperial-ship-card" data-ship-id="1">
+        <div class="ship-silhouette destroyer">
+          <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Left Wing -->
+            <polygon points="15,10 30,10 30,90 15,90" fill="#111" stroke="#555" stroke-width="1.5"/>
+            <line x1="22.5" y1="10" x2="22.5" y2="90" stroke="#333" stroke-width="1"/>
+            
+            <!-- Right Wing -->
+            <polygon points="90,10 105,10 105,90 90,90" fill="#111" stroke="#555" stroke-width="1.5"/>
+            <line x1="97.5" y1="10" x2="97.5" y2="90" stroke="#333" stroke-width="1"/>
+
+            <!-- Pylons -->
+            <polygon points="30,42 90,42 90,58 30,58" fill="#222" stroke="#444" stroke-width="1"/>
+            <line x1="30" y1="50" x2="90" y2="50" stroke="#111" stroke-width="2"/>
+            
+            <!-- Central Pod -->
+            <circle cx="60" cy="50" r="22" fill="#333" stroke="#666" stroke-width="1.5"/>
+            <circle cx="60" cy="50" r="14" fill="#111" stroke="#444" stroke-width="1.5"/>
+            
+            <!-- Cockpit Window Webbing -->
+            <line x1="60" y1="36" x2="60" y2="64" stroke="#555" stroke-width="2"/>
+            <line x1="46" y1="50" x2="74" y2="50" stroke="#555" stroke-width="2"/>
+            <line x1="50" y1="40" x2="70" y2="60" stroke="#555" stroke-width="1.5"/>
+            <line x1="50" y1="60" x2="70" y2="40" stroke="#555" stroke-width="1.5"/>
+            <circle cx="60" cy="50" r="5" fill="#222" stroke="#444" stroke-width="1"/>
+            
+            <!-- Chin Blasters -->
+            <circle cx="54" cy="70" r="2.5" fill="#ff2222" filter="drop-shadow(0 0 3px #ff0000)"/>
+            <circle cx="66" cy="70" r="2.5" fill="#ff2222" filter="drop-shadow(0 0 3px #ff0000)"/>
+            
+            <!-- Top Hatch -->
+            <path d="M 50 30 Q 60 25 70 30" fill="none" stroke="#555" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="ship-project-info">
+          <h3 class="project-name">Enterprise CRM</h3>
+          <p class="project-desc">Scalable management system for global enterprise operations.</p>
+          <div class="project-tags">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+          </div>
+          <div class="project-actions">
+            <button class="action-btn deploy-btn" data-ship-id="1" data-url="#" onclick="fireRebelLaser(this)">▶ Deploy</button>
+            <button class="action-btn github-btn" data-ship-id="1" data-url="#" onclick="fireRebelLaser(this)">⌥ GitHub</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="imperial-ship-card" data-ship-id="2">
+        <div class="ship-silhouette destroyer">
+          <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Left Wing -->
+            <polygon points="15,10 30,10 30,90 15,90" fill="#111" stroke="#555" stroke-width="1.5"/>
+            <line x1="22.5" y1="10" x2="22.5" y2="90" stroke="#333" stroke-width="1"/>
+            
+            <!-- Right Wing -->
+            <polygon points="90,10 105,10 105,90 90,90" fill="#111" stroke="#555" stroke-width="1.5"/>
+            <line x1="97.5" y1="10" x2="97.5" y2="90" stroke="#333" stroke-width="1"/>
+
+            <!-- Pylons -->
+            <polygon points="30,42 90,42 90,58 30,58" fill="#222" stroke="#444" stroke-width="1"/>
+            <line x1="30" y1="50" x2="90" y2="50" stroke="#111" stroke-width="2"/>
+            
+            <!-- Central Pod -->
+            <circle cx="60" cy="50" r="22" fill="#333" stroke="#666" stroke-width="1.5"/>
+            <circle cx="60" cy="50" r="14" fill="#111" stroke="#444" stroke-width="1.5"/>
+            
+            <!-- Cockpit Window Webbing -->
+            <line x1="60" y1="36" x2="60" y2="64" stroke="#555" stroke-width="2"/>
+            <line x1="46" y1="50" x2="74" y2="50" stroke="#555" stroke-width="2"/>
+            <line x1="50" y1="40" x2="70" y2="60" stroke="#555" stroke-width="1.5"/>
+            <line x1="50" y1="60" x2="70" y2="40" stroke="#555" stroke-width="1.5"/>
+            <circle cx="60" cy="50" r="5" fill="#222" stroke="#444" stroke-width="1"/>
+            
+            <!-- Chin Blasters -->
+            <circle cx="54" cy="70" r="2.5" fill="#ff2222" filter="drop-shadow(0 0 3px #ff0000)"/>
+            <circle cx="66" cy="70" r="2.5" fill="#ff2222" filter="drop-shadow(0 0 3px #ff0000)"/>
+            
+            <!-- Top Hatch -->
+            <path d="M 50 30 Q 60 25 70 30" fill="none" stroke="#555" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="ship-project-info">
+          <h3 class="project-name">Fintech Core</h3>
+          <p class="project-desc">Real-time transaction processing with bank-grade security.</p>
+          <div class="project-tags">
+            <span class="tag">TypeScript</span>
+            <span class="tag">PostgreSQL</span>
+          </div>
+          <div class="project-actions">
+            <button class="action-btn deploy-btn" data-ship-id="2" data-url="#" onclick="fireRebelLaser(this)">▶ Deploy</button>
+            <button class="action-btn github-btn" data-ship-id="2" data-url="#" onclick="fireRebelLaser(this)">⌥ GitHub</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="imperial-ship-card" data-ship-id="3">
+        <div class="ship-silhouette destroyer">
+          <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Left Wing -->
+            <polygon points="15,10 30,10 30,90 15,90" fill="#111" stroke="#555" stroke-width="1.5"/>
+            <line x1="22.5" y1="10" x2="22.5" y2="90" stroke="#333" stroke-width="1"/>
+            
+            <!-- Right Wing -->
+            <polygon points="90,10 105,10 105,90 90,90" fill="#111" stroke="#555" stroke-width="1.5"/>
+            <line x1="97.5" y1="10" x2="97.5" y2="90" stroke="#333" stroke-width="1"/>
+
+            <!-- Pylons -->
+            <polygon points="30,42 90,42 90,58 30,58" fill="#222" stroke="#444" stroke-width="1"/>
+            <line x1="30" y1="50" x2="90" y2="50" stroke="#111" stroke-width="2"/>
+            
+            <!-- Central Pod -->
+            <circle cx="60" cy="50" r="22" fill="#333" stroke="#666" stroke-width="1.5"/>
+            <circle cx="60" cy="50" r="14" fill="#111" stroke="#444" stroke-width="1.5"/>
+            
+            <!-- Cockpit Window Webbing -->
+            <line x1="60" y1="36" x2="60" y2="64" stroke="#555" stroke-width="2"/>
+            <line x1="46" y1="50" x2="74" y2="50" stroke="#555" stroke-width="2"/>
+            <line x1="50" y1="40" x2="70" y2="60" stroke="#555" stroke-width="1.5"/>
+            <line x1="50" y1="60" x2="70" y2="40" stroke="#555" stroke-width="1.5"/>
+            <circle cx="60" cy="50" r="5" fill="#222" stroke="#444" stroke-width="1"/>
+            
+            <!-- Chin Blasters -->
+            <circle cx="54" cy="70" r="2.5" fill="#ff2222" filter="drop-shadow(0 0 3px #ff0000)"/>
+            <circle cx="66" cy="70" r="2.5" fill="#ff2222" filter="drop-shadow(0 0 3px #ff0000)"/>
+            
+            <!-- Top Hatch -->
+            <path d="M 50 30 Q 60 25 70 30" fill="none" stroke="#555" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="ship-project-info">
+          <h3 class="project-name">Inventory Cloud</h3>
+          <p class="project-desc">AI-driven logistics and supply chain optimization.</p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">React</span>
+          </div>
+          <div class="project-actions">
+            <button class="action-btn deploy-btn" data-ship-id="3" data-url="#" onclick="fireRebelLaser(this)">▶ Deploy</button>
+            <button class="action-btn github-btn" data-ship-id="3" data-url="#" onclick="fireRebelLaser(this)">⌥ GitHub</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="rebel-ship-base">
+      <svg id="rebel-ship-svg" viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
+        <!-- Engine Glow -->
+        <path d="M 35 125 C 60 140, 60 140, 85 125" fill="none" stroke="#00d4ff" stroke-width="8" filter="blur(3px)" opacity="0.8"/>
+        <!-- Engine back -->
+        <path d="M 35 120 C 60 135, 60 135, 85 120 L 80 115 C 60 125, 60 125, 40 115 Z" fill="#e4e1e9"/>
+        
+        <!-- Main Body -->
+        <circle cx="60" cy="85" r="45" fill="#a0a0a5" stroke="#7a7a80" stroke-width="2"/>
+        <circle cx="60" cy="85" r="30" fill="#b0b0b5" stroke="#8a8a90" stroke-width="1"/>
+        <!-- Top armor plating -->
+        <path d="M 60 40 L 95 85 L 60 130 L 25 85 Z" fill="none" stroke="#8a8a90" stroke-width="1" opacity="0.5"/>
+        <circle cx="60" cy="85" r="12" fill="#808085" stroke="#5a5a60" stroke-width="1"/>
+        <circle cx="60" cy="85" r="5" fill="#606065"/>
+        
+        <!-- Left Mandible -->
+        <path d="M 30 50 L 40 10 L 52 10 L 52 45 Z" fill="#a0a0a5" stroke="#7a7a80" stroke-width="1"/>
+        <!-- Right Mandible -->
+        <path d="M 90 50 L 80 10 L 68 10 L 68 45 Z" fill="#a0a0a5" stroke="#7a7a80" stroke-width="1"/>
+        <!-- Center notch -->
+        <rect x="52" y="30" width="16" height="25" fill="#909095" stroke="#7a7a80" stroke-width="1"/>
+        
+        <!-- Cockpit Tube -->
+        <path d="M 100 80 L 115 60 L 118 70 L 105 90 Z" fill="#909095" stroke="#7a7a80" stroke-width="1"/>
+        <!-- Cockpit -->
+        <ellipse cx="115" cy="65" rx="6" ry="10" fill="#707075" stroke="#4a4a50" stroke-width="1" transform="rotate(30 115 65)"/>
+        <!-- Radar Dish -->
+        <ellipse cx="35" cy="65" rx="7" ry="14" fill="#808085" stroke="#4a4a50" stroke-width="1" transform="rotate(-20 35 65)"/>
+        
+        <!-- Exhaust vents -->
+        <path d="M 30 110 C 60 130, 60 130, 90 110" fill="none" stroke="#606065" stroke-width="6"/>
+        <path d="M 35 110 C 60 128, 60 128, 85 110" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.9"/>
+        
+        <!-- Details & greebles -->
+        <rect x="45" y="70" width="30" height="30" fill="none" stroke="#7a7a80" stroke-width="1" rx="2"/>
+        
+        <!-- Laser origin -->
+        <circle id="laser-origin" cx="60" cy="10" r="2" fill="#00ff44" opacity="0"/>
+      </svg>
+      <p class="rebel-label">Millennium Falcon — Frota Mateus</p>
+    </div>
+  </div>
+</section>
+<section class="py-24 px-4 md:px-margin max-w-container-max mx-auto relative z-10" id="study-projects">
+<div class="space-y-12">
+<h2 class="font-display-lg text-4xl text-on-surface text-center">ANCIENT ARCHIVES</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="flex gap-4 p-6 border-l-4 border-primary-container bg-surface-container/40">
+<span class="material-symbols-outlined text-4xl" data-icon="folder_open">folder_open</span>
+<div>
+<h3 class="font-bold">Neural Net Playground</h3>
+<p class="text-sm text-on-surface-variant">Experimenting with PyTorch and basic ML models.</p>
+</div>
+</div>
+<div class="flex gap-4 p-6 border-l-4 border-primary-container bg-surface-container/40">
+<span class="material-symbols-outlined text-4xl" data-icon="folder_open">folder_open</span>
+<div>
+<h3 class="font-bold">Decentralized Voting</h3>
+<p class="text-sm text-on-surface-variant">Proof of concept for secure blockchain-based elections.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 px-4 md:px-margin max-w-container-max mx-auto relative z-10" id="contact">
+<div class="max-w-xl mx-auto border border-cyan-500/30 bg-slate-900/80 p-8 rounded-2xl backdrop-blur-xl">
+<h2 class="text-2xl font-['Orbitron'] text-cyan-400 mb-8 text-center uppercase tracking-widest">Open Comm-Link</h2>
+<form class="space-y-6">
+<div>
+<label class="block text-xs font-['Space_Grotesk'] text-cyan-500 uppercase tracking-tighter mb-2">Origin Signature</label>
+<input class="w-full bg-black/50 border border-cyan-900/50 rounded p-3 text-cyan-200 focus:border-cyan-400 outline-none transition-all" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-['Space_Grotesk'] text-cyan-500 uppercase tracking-tighter mb-2">Transmission Data</label>
+<textarea class="w-full bg-black/50 border border-cyan-900/50 rounded p-3 text-cyan-200 focus:border-cyan-400 outline-none transition-all h-32"></textarea>
+</div>
+<div class="saber-btn-wrapper w-full">
+  <button class="saber-btn w-full" type="submit" data-target="send">Send Transmission</button>
+  <div class="saber-placeholder">
+    <div class="saber-hilt"></div>
+    <div class="saber-blade" style="box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00; background: #fff;"></div>
+  </div>
+  <canvas class="saber-cut-canvas"></canvas>
+</div>
+</form>
+</div>
+</section>
+</main>
+<footer class="w-full py-12 border-t border-cyan-900/20 bg-transparent relative z-10 content-layer">
+<div class="max-w-7xl mx-auto flex flex-col items-center justify-center gap-4">
+<div class="flex gap-6 mb-4">
+<a class="text-slate-600 hover:text-amber-200 transition-all font-['Space_Grotesk'] text-[10px] tracking-[0.3em] uppercase" href="#">TERMINAL</a>
+<a class="text-slate-600 hover:text-amber-200 transition-all font-['Space_Grotesk'] text-[10px] tracking-[0.3em] uppercase" href="#">STARDATE</a>
+<a class="text-slate-600 hover:text-amber-200 transition-all font-['Space_Grotesk'] text-[10px] tracking-[0.3em] uppercase" href="#">PROTOCOL</a>
+</div>
+<p class="font-['Space_Grotesk'] text-[10px] tracking-[0.3em] uppercase text-amber-400">
+                © 2024 GALACTIC_DEV_REGISTRY // SECTOR_7G
+            </p>
+<p class="font-['Space_Grotesk'] text-[8px] tracking-[0.4em] uppercase text-outline-variant mt-2 opacity-50">
+                May the code be with you
+            </p>
+</div>
+</footer>
+<script src="assets/js/main.js"></script></body></html>

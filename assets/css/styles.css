@@ -1,0 +1,359 @@
+body.loading-active {
+            overflow: hidden;
+        }
+
+        .scanlines {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9998;
+        }
+        body {
+            background-color: #050505;
+            color: #e4e1e9;
+        }
+        
+        #scene-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .scene.active {
+            opacity: 1;
+        }
+
+        #hyperspace-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #loading-hyperspace {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #opening-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: #00d4ff;
+            text-align: center;
+            max-width: 90%;
+            letter-spacing: 0.08em;
+            white-space: pre-wrap;
+            position: relative;
+            z-index: 2;
+        }
+        .fade-out {
+            opacity: 0 !important;
+            transition: opacity 1s ease;
+        }
+
+        .stars-bg {
+            position: absolute;
+            inset: 0;
+            background: transparent;
+        }
+
+        @font-face {
+            font-family: 'StarJedi';
+            src: url('../fonts/starjedi/Starjedi.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        .hero-name {
+            font-family: 'StarJedi', 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5.5rem);
+            letter-spacing: 0.12em;
+            
+            /* Cores icônicas do título Star Wars:
+               amarelo-dourado principal com brilho quente */
+            color: #FFE81F;
+            
+            text-shadow:
+              0 0 10px rgba(255, 232, 31, 0.9),   /* brilho amarelo próximo */
+              0 0 25px rgba(255, 200, 0, 0.7),    /* halo dourado médio */
+              0 0 50px rgba(255, 160, 0, 0.4),    /* halo laranja distante */
+              2px 2px 0px rgba(0, 0, 0, 0.8),    /* sombra sólida para legibilidade */
+              0 0 80px rgba(255, 100, 0, 0.2);   /* brilho quente sutil */
+            
+            /* Animação de pulso suave como no crawl do filme */
+            animation: namePulse 4s ease-in-out infinite;
+        }
+
+        @keyframes namePulse {
+            0%, 100% {
+              text-shadow:
+                0 0 10px rgba(255, 232, 31, 0.9),
+                0 0 25px rgba(255, 200, 0, 0.7),
+                0 0 50px rgba(255, 160, 0, 0.4),
+                2px 2px 0px rgba(0, 0, 0, 0.8);
+            }
+            50% {
+              text-shadow:
+                0 0 15px rgba(255, 232, 31, 1),
+                0 0 35px rgba(255, 200, 0, 0.9),
+                0 0 70px rgba(255, 160, 0, 0.6),
+                2px 2px 0px rgba(0, 0, 0, 0.8),
+                0 0 100px rgba(255, 100, 0, 0.3);
+            }
+        }
+
+        .saber-btn-wrapper {
+            position: relative;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+            cursor: pointer;
+        }
+        
+        .saber-placeholder {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            height: 10px;
+            width: 100%;
+            justify-content: center;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .saber-btn-wrapper:hover .saber-placeholder {
+            opacity: 1;
+        }
+        
+        .saber-hilt {
+            width: 30px;
+            height: 8px;
+            background: linear-gradient(to bottom, #d1d5db, #4b5563, #1f2937);
+            border-radius: 2px 0 0 2px;
+            border: 1px solid #000;
+            z-index: 2;
+        }
+        
+        .saber-blade {
+            height: 6px;
+            width: calc(100% - 30px);
+            background: #fff;
+            border-radius: 0 3px 3px 0;
+            box-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 30px #00d4ff, 0 0 40px #00d4ff;
+            transition: transform 0.3s ease-out;
+            z-index: 1;
+            transform-origin: left center;
+            transform: scaleX(0);
+        }
+        
+        .saber-btn-wrapper:hover .saber-blade {
+            transform: scaleX(1);
+        }
+        
+        .saber-cut-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 20;
+        }
+        
+        .saber-btn {
+          position: relative;
+          overflow: hidden;
+          background: transparent;
+          border: 1px solid rgba(0, 212, 255, 0.4);
+          color: #00d4ff;
+          font-family: 'Orbitron', sans-serif;
+          font-size: 13px;
+          letter-spacing: 0.12em;
+          padding: 12px 28px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .battle-grid-wrapper {
+          position: relative;
+          max-width: 1100px;
+          margin: 0 auto;
+          padding-bottom: 220px;
+        }
+        
+        #project-battle-canvas {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          z-index: 10;
+        }
+        
+        .imperial-fleet-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+          gap: 24px;
+          padding: 24px;
+        }
+        
+        .imperial-ship-card {
+          background: rgba(10, 10, 20, 0.85);
+          border: 1px solid rgba(80, 80, 120, 0.4);
+          border-radius: 4px;
+          padding: 20px;
+          position: relative;
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+        }
+        
+        .imperial-ship-card:hover {
+          border-color: rgba(0, 180, 255, 0.5);
+          box-shadow: 0 0 20px rgba(0, 100, 200, 0.2);
+        }
+        
+        .ship-silhouette svg {
+          width: 100%;
+          max-height: 80px;
+          opacity: 0.7;
+          filter: drop-shadow(0 0 8px rgba(0, 150, 255, 0.3));
+          margin-bottom: 12px;
+        }
+
+        .ship-project-info {
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+        }
+        
+        .project-name {
+          font-family: 'Orbitron', sans-serif;
+          font-size: 13px;
+          color: #00d4ff;
+          letter-spacing: 0.08em;
+          margin-bottom: 8px;
+        }
+        
+        .project-desc {
+          font-size: 12px;
+          color: rgba(200, 210, 230, 0.7);
+          line-height: 1.6;
+          margin-bottom: 12px;
+          flex-grow: 1;
+        }
+        
+        .project-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          margin-bottom: 14px;
+        }
+        
+        .tag {
+          font-size: 10px;
+          padding: 3px 8px;
+          border: 1px solid rgba(0, 180, 255, 0.3);
+          color: rgba(0, 200, 255, 0.8);
+          border-radius: 2px;
+          font-family: 'Orbitron', sans-serif;
+          letter-spacing: 0.06em;
+        }
+        
+        .project-actions {
+          display: flex;
+          gap: 10px;
+        }
+        
+        .action-btn {
+          flex: 1;
+          font-family: 'Orbitron', sans-serif;
+          font-size: 10px;
+          letter-spacing: 0.1em;
+          padding: 8px 12px;
+          border: 1px solid rgba(0, 212, 255, 0.3);
+          background: transparent;
+          color: #00d4ff;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        
+        .action-btn:hover {
+          background: rgba(0, 212, 255, 0.1);
+          border-color: rgba(0, 212, 255, 0.7);
+          box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+        
+        .rebel-ship-base {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          text-align: center;
+          width: 200px;
+        }
+        
+        #rebel-ship-svg {
+          width: 120px;
+          margin: 0 auto;
+          display: block;
+          filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.4));
+          animation: rebelHover 3s ease-in-out infinite;
+        }
+        
+        @keyframes rebelHover {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-6px); }
+        }
+        
+        .rebel-label {
+          font-family: 'Orbitron', sans-serif;
+          font-size: 9px;
+          color: rgba(0, 255, 80, 0.5);
+          letter-spacing: 0.1em;
+          margin-top: 4px;
+        }
+
+body {
+      min-height: max(884px, 100dvh);
+    }
