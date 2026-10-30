@@ -1046,7 +1046,10 @@ const CONFIG = {
           });
 
           if (!response.ok) {
-            throw new Error(`EmailJS returned status ${response.status}`);
+            const responseDetails = (await response.text()).trim().replace(/\s+/g, ' ').slice(0, 500);
+            throw new Error(
+              `EmailJS returned status ${response.status}${responseDetails ? `: ${responseDetails}` : ''}`
+            );
           }
 
           form.reset();

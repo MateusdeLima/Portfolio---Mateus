@@ -171,7 +171,7 @@ Abra `http://localhost:8000`. Não abra o arquivo `index.html` diretamente como 
 - **O formulário diz que ainda não está configurado:** confira se os três IDs e as duas chaves públicas em `assets/js/emailjs-config.js` foram preenchidos e se o deploy terminou.
 - **O reCAPTCHA não aparece:** confira a Site Key, o hostname autorizado no painel do Google e se o hostname corresponde exatamente ao endereço aberto.
 - **A verificação do reCAPTCHA falha:** confira se a Secret Key correta foi salva nas configurações do template EmailJS e se a opção de reCAPTCHA v2 está habilitada.
-- **O EmailJS rejeita o envio:** confirme os IDs do serviço/template, os nomes das variáveis e se a conta Gmail conectada continua autorizada. Consulte o histórico de envios no painel EmailJS.
+- **O EmailJS rejeita o envio:** abra o Console do navegador e leia o detalhe após `EmailJS returned status` no erro `Contact form submission failed`. Um HTTP 400 significa que o EmailJS recebeu a requisição, mas rejeitou a configuração ou os dados. Confira os IDs do serviço/template, os nomes das variáveis, se o reCAPTCHA v2 está habilitado no template e se a Secret Key está correta. Resolva o reCAPTCHA novamente antes de cada tentativa, pois o token expira e é de uso único. Consulte também o histórico de envios no painel EmailJS.
 - **Não recebeu a mensagem:** verifique Spam e confirme que o campo **To Email** do template contém `silvamateusdelima99@gmail.com`.
 
 ## Referências oficiais
