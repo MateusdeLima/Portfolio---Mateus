@@ -1,3 +1,174 @@
+const TRANSLATIONS = {
+    en: {
+        'nav.home': 'HOME',
+        'nav.about': 'ABOUT',
+        'nav.arsenal': 'ARSENAL',
+        'nav.archives': 'ARCHIVES',
+        'nav.contact': 'COMM-LINK',
+        'nav.label': 'Main navigation',
+        'menu.open': 'Open navigation menu',
+        'menu.close': 'Close navigation menu',
+        'hero.status': 'SYSTEM_ONLINE // STATUS: READY',
+        'hero.role': '> Full Stack Developer | Systems Analysis and Development',
+        'hero.projects': 'View Projects',
+        'hero.contact': 'Contact',
+        'about.photoAlt': 'Profile photo',
+        'about.heading': 'PROFILE DATA',
+        'about.paragraph1': 'Graduated in Analysis and Systems Development. Passionate about building robust, scalable applications from the ground up. I thrive in environments that challenge me to solve complex architectural problems using modern web technologies.',
+        'about.paragraph2': 'I value organization and collaboration, and I am currently deepening my knowledge of Agile methodologies, especially Kanban and Scrum, to plan work and deliver value iteratively.',
+        'about.stack': 'TECH STACK',
+        'about.technologies': 'Technologies I work with',
+        'arsenal.heading': 'PROJECT ARSENAL',
+        'projects.shopee': 'Corporate system for managing employee absences, time tracking, and time-bank balances, actively used by Shopee associates and agents.',
+        'projects.true': 'Production system for financial management, receipts, inventory, customers, sales, warranties, and cash flow at True iPhones.',
+        'projects.casarao': 'Website showcasing apartments available for short-term rental at Casarão Ipiranga.',
+        'projects.ingrid': 'High-conversion, responsive landing page for personal trainer and fitness consultant Ingrid Lemos.',
+        'projects.deploy': '▶ Deploy',
+        'projects.github': '⌥ GitHub',
+        'falcon.aria': 'Millennium Falcon — Mateus Fleet. Click to visit my GitHub',
+        'falcon.title': 'Millennium Falcon, viewed from above',
+        'falcon.caption': 'Millennium Falcon — Mateus Fleet - Click the Falcon to travel to my GitHub',
+        'archives.heading': 'ARCHIVES',
+        'archives.eyebrow': 'GALACTIC DATA VAULT // ACCESS GRANTED',
+        'archives.files': 'RECOVERED PROJECT FILES',
+        'archives.status': '4 FILES ONLINE',
+        'archives.bot': 'DISCORD BOT',
+        'archives.extension': 'CHROME EXTENSION',
+        'archives.botDescription': 'A fully functional Python bot that identifies prohibited Shopee products. Already used by Shopee agents.',
+        'archives.sosBotDescription': 'Discord bot used by Shopee agents to answer SOP questions and provide examples of KW (keyword) analysis.',
+        'archives.grmDescription': 'JavaScript automations and AI-assisted task analysis, built and used by agents in their daily workflow.',
+        'archives.itemDescription': 'JavaScript extension that automates AI task analysis, reaching 92% analysis accuracy and supporting agents at work.',
+        'archives.openGithub': 'OPEN GITHUB',
+        'archives.cableAlt': 'R2-D2 connecting to the project archive terminal',
+        'droid.aria': 'R2-D2 — click to access my GitHub',
+        'droid.title': 'R2-D2 accessing the project archives',
+        'droid.caption': 'R2-D2 // ARCHIVE ACCESS DROID - Click R2 to access my GitHub',
+        'contact.heading': 'Open Comm-Link',
+        'contact.subject': 'Proposal Subject',
+        'contact.message': 'Message Body',
+        'contact.email': 'Your Email (for a reply)',
+        'contact.send': 'Send Transmission',
+        'contact.sending': 'Transmitting message...',
+        'contact.success': 'Transmission received. I will get back to you soon.',
+        'contact.error': 'Transmission failed. Please try again later.',
+        'contact.droidAlt': 'C-3PO, the golden communications droid transmitting messages',
+        'contact.droidCaption': 'C-3PO // COMM-LINK TRANSMISSION',
+        'footer.terminal': 'TERMINAL',
+        'footer.stardate': 'STARDATE',
+        'footer.protocol': 'PROTOCOL',
+        'footer.tagline': 'May the code be with you',
+        'page.title': 'Mateus de Lima Silva - Full Stack Developer',
+        'language.toggle': 'Switch page to Portuguese',
+        'opening.crawl': 'A long time ago in a galaxy far, far away...'
+    },
+    pt: {
+        'nav.home': 'INÍCIO',
+        'nav.about': 'SOBRE',
+        'nav.arsenal': 'PROJETOS',
+        'nav.archives': 'ARQUIVOS',
+        'nav.contact': 'COM-LINK',
+        'nav.label': 'Navegação principal',
+        'menu.open': 'Abrir menu de navegação',
+        'menu.close': 'Fechar menu de navegação',
+        'hero.status': 'SISTEMA_ONLINE // STATUS: PRONTO',
+        'hero.role': '> Desenvolvedor Full Stack | Análise e Desenvolvimento de Sistemas',
+        'hero.projects': 'Ver Projetos',
+        'hero.contact': 'Contato',
+        'about.photoAlt': 'Foto de perfil',
+        'about.heading': 'DADOS DO PERFIL',
+        'about.paragraph1': 'Graduado em Análise e Desenvolvimento de Sistemas. Sou apaixonado por criar aplicações robustas e escaláveis desde o início. Gosto de ambientes que me desafiam a resolver problemas arquiteturais complexos usando tecnologias web modernas.',
+        'about.paragraph2': 'Valorizo organização e colaboração e atualmente estou aprofundando meus conhecimentos em metodologias ágeis, especialmente Kanban e Scrum, para planejar o trabalho e entregar valor de forma iterativa.',
+        'about.stack': 'TECNOLOGIAS',
+        'about.technologies': 'Tecnologias com as quais trabalho',
+        'arsenal.heading': 'ARSENAL DE PROJETOS',
+        'projects.shopee': 'Sistema corporativo para gerenciar ausências de funcionários, controle de ponto e banco de horas, utilizado ativamente por colaboradores e agentes da Shopee.',
+        'projects.true': 'Sistema de produção para gestão financeira, recibos, estoque, clientes, vendas, garantias e fluxo de caixa da True iPhones.',
+        'projects.casarao': 'Site que apresenta apartamentos disponíveis para aluguel de curta temporada no Casarão Ipiranga.',
+        'projects.ingrid': 'Landing page responsiva e otimizada para conversão, criada para a personal trainer e consultora fitness Ingrid Lemos.',
+        'projects.deploy': '▶ Acessar',
+        'projects.github': '⌥ GitHub',
+        'falcon.aria': 'Millennium Falcon — Frota Mateus. Clique para visitar meu GitHub',
+        'falcon.title': 'Millennium Falcon vista de cima',
+        'falcon.caption': 'Millennium Falcon — Frota Mateus - Clique na Millennium para viajar até meu GitHub',
+        'archives.heading': 'ARQUIVOS',
+        'archives.eyebrow': 'ARQUIVO DE DADOS GALÁCTICO // ACESSO AUTORIZADO',
+        'archives.files': 'ARQUIVOS DE PROJETOS RECUPERADOS',
+        'archives.status': '4 ARQUIVOS ONLINE',
+        'archives.bot': 'BOT DO DISCORD',
+        'archives.extension': 'EXTENSÃO DO CHROME',
+        'archives.botDescription': 'Bot totalmente funcional, desenvolvido em Python, que identifica produtos proibidos na Shopee. Já utilizado por agentes da Shopee.',
+        'archives.sosBotDescription': 'Bot do Discord para tarefas de GRM na Shopee, já utilizado por agentes para consultar dúvidas sobre SOP e ver exemplos de análise de KWs.',
+        'archives.grmDescription': 'Automações em JavaScript e auxílio de IA na análise de tarefas, desenvolvido e utilizado por agentes no trabalho diário.',
+        'archives.itemDescription': 'Extensão em JavaScript que automatiza a análise de tarefas com IA, alcançando 92% de precisão e auxiliando agentes no trabalho.',
+        'archives.openGithub': 'ABRIR GITHUB',
+        'archives.cableAlt': 'R2-D2 conectado ao terminal do arquivo de projetos',
+        'droid.aria': 'R2-D2 — clique para acessar meu GitHub',
+        'droid.title': 'R2-D2 acessando os arquivos dos projetos',
+        'droid.caption': 'R2-D2 // DROIDE DE ACESSO AOS ARQUIVOS - Clique no R2 para acessar meu GitHub',
+        'contact.heading': 'Abrir Canal de Comunicação',
+        'contact.subject': 'Assunto da proposta',
+        'contact.message': 'Corpo da mensagem',
+        'contact.email': 'Seu e-mail para resposta',
+        'contact.send': 'Enviar Transmissão',
+        'contact.sending': 'Enviando transmissão...',
+        'contact.success': 'Mensagem recebida. Entrarei em contato em breve.',
+        'contact.error': 'Falha no envio. Tente novamente mais tarde.',
+        'footer.terminal': 'TERMINAL',
+        'footer.stardate': 'DATA ESTELAR',
+        'footer.protocol': 'PROTOCOLO',
+        'footer.tagline': 'Que o código esteja com você',
+        'page.title': 'Mateus de Lima Silva - Desenvolvedor Full Stack',
+        'language.toggle': 'Switch page to English',
+        'contact.droidAlt': 'C-3PO, o droide de comunicação dourado transmitindo mensagens',
+        'contact.droidCaption': 'C-3PO // TRANSMITINDO MENSAGEM PELO COMM-LINK',
+        'opening.crawl': 'Há muito tempo, em uma galáxia muito, muito distante...'
+    }
+};
+
+let currentLanguage = 'en';
+
+function applyLanguage(language) {
+    const translations = TRANSLATIONS[language];
+    if (!translations) {
+        throw new Error(`Unsupported language: ${language}`);
+    }
+
+    currentLanguage = language;
+    document.documentElement.lang = language === 'pt' ? 'pt-BR' : 'en';
+    document.title = translations['page.title'];
+
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const translation = translations[element.dataset.i18n];
+        if (translation !== undefined) element.textContent = translation;
+    });
+
+    document.querySelectorAll('[data-i18n-attr]').forEach(element => {
+        element.dataset.i18nAttr.split(',').forEach(attributeTranslation => {
+            const [attribute, key] = attributeTranslation.split(':');
+            const translation = translations[key];
+            if (translation !== undefined) element.setAttribute(attribute, translation);
+        });
+    });
+
+    const toggle = document.getElementById('language-toggle');
+    toggle.dataset.currentLanguage = language;
+    toggle.setAttribute('aria-label', translations['language.toggle']);
+    toggle.setAttribute('aria-pressed', String(language === 'pt'));
+    toggle.querySelectorAll('[data-language-option]').forEach(option => {
+        option.classList.toggle('is-active', option.dataset.languageOption === language);
+    });
+
+    document.getElementById('main-navigation').setAttribute('aria-label', translations['nav.label']);
+    updateMobileMenuLabel();
+}
+
+function updateMobileMenuLabel() {
+    const menuToggle = document.getElementById('mobile-menu-toggle');
+    const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-label', TRANSLATIONS[currentLanguage][isOpen ? 'menu.close' : 'menu.open']);
+    menuToggle.querySelector('.material-symbols-outlined').textContent = isOpen ? 'close' : 'menu';
+}
+
 const CONFIG = {
         isMobile: window.innerWidth < 768,
         maxLasers: 20,
@@ -17,10 +188,26 @@ const CONFIG = {
     let traffic = [];
     let beams = [];
 
+    const languageToggle = document.getElementById('language-toggle');
+    languageToggle.addEventListener('click', () => {
+        applyLanguage(currentLanguage === 'en' ? 'pt' : 'en');
+    });
+
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mainNavigation = document.getElementById('main-navigation');
+    mobileMenuToggle.addEventListener('click', () => {
+        const isOpen = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+        mobileMenuToggle.setAttribute('aria-expanded', String(!isOpen));
+        mainNavigation.classList.toggle('is-open', !isOpen);
+        updateMobileMenuLabel();
+    });
+
+    applyLanguage(currentLanguage);
+
     // Loading Screen Logic
     window.addEventListener('load', () => {
         const openingText = document.getElementById('opening-text');
-        const text = "A long time ago in a galaxy far, far away...";
+        const text = TRANSLATIONS[currentLanguage]['opening.crawl'];
         let i = 0;
         function typeWriter() {
             if (i < text.length) {
@@ -185,12 +372,172 @@ const CONFIG = {
             ctx.fillStyle = dGrad;
             ctx.fill();
 
+            drawDeathStarSurface(ctx, dx, dy, dr);
+
             ctx.beginPath();
-            ctx.arc(dx - dr*0.2, dy - dr*0.2, dr*0.25, 0, Math.PI * 2);
-            ctx.fillStyle = '#4a4a4a';
-            ctx.fill();
+            ctx.arc(dx, dy, dr, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(222, 226, 222, 0.34)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
         }
 
+        ctx.restore();
+    }
+
+    function drawDeathStarSurface(ctx, cx, cy, radius) {
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.scale(radius, radius);
+        ctx.beginPath();
+        ctx.arc(0, 0, 1, 0, Math.PI * 2);
+        ctx.clip();
+
+        const surface = ctx.createRadialGradient(-0.4, -0.48, 0.04, 0.05, 0.1, 1.28);
+        surface.addColorStop(0, 'rgba(226, 224, 213, 0.94)');
+        surface.addColorStop(0.38, 'rgba(150, 152, 150, 0.91)');
+        surface.addColorStop(0.72, 'rgba(73, 78, 82, 0.95)');
+        surface.addColorStop(1, 'rgba(11, 15, 20, 1)');
+        ctx.fillStyle = surface;
+        ctx.fillRect(-1, -1, 2, 2);
+
+        const panelWidth = 0.108;
+        const panelHeight = 0.145;
+        const columnStep = 0.12;
+        const rowStep = 0.16;
+        let row = 0;
+
+        for (let y = -0.96; y < 0.96; y += rowStep) {
+            let column = 0;
+            for (let x = -0.99; x < 0.99; x += columnStep) {
+                ctx.fillStyle = (row + column) % 5 === 0
+                    ? 'rgba(29, 34, 38, 0.38)'
+                    : 'rgba(224, 223, 213, 0.14)';
+                ctx.fillRect(x, y, panelWidth, panelHeight);
+                ctx.strokeStyle = 'rgba(24, 29, 33, 0.52)';
+                ctx.lineWidth = 0.004;
+                ctx.strokeRect(x, y, panelWidth, panelHeight);
+
+                ctx.fillStyle = 'rgba(235, 233, 219, 0.28)';
+                ctx.fillRect(x + 0.009, y + 0.01, 0.008, panelHeight - 0.02);
+                ctx.fillStyle = 'rgba(241, 239, 224, 0.56)';
+                ctx.fillRect(x + 0.032, y + 0.026, 0.009, 0.01);
+                ctx.fillRect(x + 0.073, y + 0.052, 0.008, 0.009);
+                ctx.fillStyle = 'rgba(25, 30, 33, 0.44)';
+                ctx.fillRect(x + 0.035, y + 0.085, 0.047, 0.004);
+                column++;
+            }
+            row++;
+        }
+
+        ctx.lineWidth = 0.006;
+        for (let y = -0.8; y <= 0.8; y += rowStep) {
+            ctx.strokeStyle = 'rgba(220, 220, 209, 0.2)';
+            ctx.beginPath();
+            ctx.moveTo(-1, y);
+            ctx.lineTo(1, y);
+            ctx.stroke();
+        }
+
+        ctx.beginPath();
+        ctx.moveTo(-1, -0.005);
+        ctx.quadraticCurveTo(0, -0.035, 1, -0.005);
+        ctx.lineTo(1, 0.045);
+        ctx.quadraticCurveTo(0, 0.015, -1, 0.045);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(14, 18, 21, 0.96)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(226, 224, 210, 0.64)';
+        ctx.lineWidth = 0.008;
+        ctx.beginPath();
+        ctx.moveTo(-1, -0.005);
+        ctx.quadraticCurveTo(0, -0.035, 1, -0.005);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(5, 8, 11, 0.78)';
+        ctx.lineWidth = 0.009;
+        ctx.beginPath();
+        ctx.moveTo(-1, 0.045);
+        ctx.quadraticCurveTo(0, 0.015, 1, 0.045);
+        ctx.stroke();
+
+        const dishX = 0.38;
+        const dishY = -0.46;
+        ctx.save();
+        ctx.translate(dishX, dishY);
+        ctx.fillStyle = 'rgba(20, 24, 28, 0.94)';
+        ctx.beginPath();
+        ctx.arc(0, 0, 0.245, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(225, 223, 210, 0.92)';
+        ctx.lineWidth = 0.018;
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(62, 67, 68, 0.96)';
+        ctx.beginPath();
+        ctx.arc(0, 0, 0.215, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(20, 24, 27, 0.96)';
+        ctx.lineWidth = 0.012;
+        ctx.beginPath();
+        ctx.arc(0, 0, 0.18, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(198, 197, 184, 0.76)';
+        ctx.lineWidth = 0.008;
+        ctx.beginPath();
+        ctx.arc(0, 0, 0.155, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(189, 188, 175, 0.84)';
+        ctx.lineWidth = 0.008;
+        ctx.beginPath();
+        ctx.arc(0, 0, 0.125, 0, Math.PI * 2);
+        ctx.stroke();
+        for (let segment = 0; segment < 12; segment++) {
+            const angle = (Math.PI * 2 * segment) / 12;
+            ctx.beginPath();
+            ctx.moveTo(Math.cos(angle) * 0.125, Math.sin(angle) * 0.125);
+            ctx.lineTo(Math.cos(angle) * 0.18, Math.sin(angle) * 0.18);
+            ctx.strokeStyle = 'rgba(188, 188, 176, 0.45)';
+            ctx.lineWidth = 0.006;
+            ctx.stroke();
+        }
+        ctx.fillStyle = 'rgba(79, 83, 82, 0.98)';
+        ctx.beginPath();
+        ctx.arc(-0.025, 0.012, 0.082, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(15, 19, 22, 0.98)';
+        ctx.lineWidth = 0.014;
+        ctx.beginPath();
+        ctx.arc(-0.025, 0.012, 0.053, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(18, 22, 24, 0.98)';
+        ctx.beginPath();
+        ctx.arc(-0.025, 0.012, 0.035, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        const sphericalLight = ctx.createRadialGradient(-0.42, -0.48, 0.04, -0.18, -0.2, 1.35);
+        sphericalLight.addColorStop(0, 'rgba(255, 255, 245, 0.3)');
+        sphericalLight.addColorStop(0.32, 'rgba(224, 232, 231, 0.14)');
+        sphericalLight.addColorStop(0.62, 'rgba(24, 30, 37, 0.14)');
+        sphericalLight.addColorStop(0.84, 'rgba(5, 9, 14, 0.48)');
+        sphericalLight.addColorStop(1, 'rgba(0, 0, 0, 0.84)');
+        ctx.fillStyle = sphericalLight;
+        ctx.fillRect(-1, -1, 2, 2);
+
+        const directionalShade = ctx.createLinearGradient(-0.75, -0.85, 0.85, 0.75);
+        directionalShade.addColorStop(0, 'rgba(255, 255, 245, 0.12)');
+        directionalShade.addColorStop(0.3, 'rgba(255, 255, 245, 0.04)');
+        directionalShade.addColorStop(0.58, 'rgba(0, 0, 0, 0)');
+        directionalShade.addColorStop(0.82, 'rgba(0, 0, 0, 0.16)');
+        directionalShade.addColorStop(1, 'rgba(0, 0, 0, 0.48)');
+        ctx.fillStyle = directionalShade;
+        ctx.fillRect(-1, -1, 2, 2);
+
+        const limbShade = ctx.createRadialGradient(0, 0, 0.64, 0, 0, 1);
+        limbShade.addColorStop(0, 'rgba(0, 0, 0, 0)');
+        limbShade.addColorStop(0.7, 'rgba(0, 0, 0, 0.03)');
+        limbShade.addColorStop(0.9, 'rgba(0, 0, 0, 0.28)');
+        limbShade.addColorStop(1, 'rgba(0, 0, 0, 0.72)');
+        ctx.fillStyle = limbShade;
+        ctx.fillRect(-1, -1, 2, 2);
         ctx.restore();
     }
 
@@ -456,6 +803,9 @@ const CONFIG = {
 
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            mainNavigation.classList.remove('is-open');
+            updateMobileMenuLabel();
             // Only prevent default if it's an a tag and doesn't have saber-btn class.
             // If it has saber-btn, initSaberButtons handles the click.
             if (!link.classList.contains('saber-btn') && link.tagName === 'A') {
@@ -473,10 +823,16 @@ const CONFIG = {
           e.preventDefault();
           e.stopPropagation();
           
+          const target = this.dataset.target;
+          const form = this.form;
+          if (target === 'send' && (!form || !form.reportValidity() || this.dataset.saberActive === 'true')) {
+            return;
+          }
+
           const wrapper = this.closest('.saber-btn-wrapper');
           const cutCanvas = wrapper.querySelector('.saber-cut-canvas');
-          const target = this.dataset.target;
           const scene = this.dataset.scene;
+          if (target === 'send') this.dataset.saberActive = 'true';
           
           const btnRect = this.getBoundingClientRect();
           cutCanvas.width = btnRect.width;
@@ -484,6 +840,8 @@ const CONFIG = {
           cutCanvas.style.position = 'absolute';
           cutCanvas.style.top = '0';
           cutCanvas.style.left = '0';
+          cutCanvas.style.width = `${btnRect.width}px`;
+          cutCanvas.style.height = `${btnRect.height}px`;
           cutCanvas.style.pointerEvents = 'none';
           cutCanvas.style.zIndex = '100';
           cutCanvas.style.display = 'block';
@@ -553,8 +911,8 @@ const CONFIG = {
               animateSplit(ctx, cutCanvas, cutY, () => {
                 cutCanvas.style.display = 'none';
                 if (target === 'send') {
-                  // just simulate send for the contact form
-                  console.log('Form submitted');
+                  delete btn.dataset.saberActive;
+                  form.requestSubmit(btn);
                 } else if (target && scene) {
                   hyperspaceTransition(target, scene);
                 }
@@ -564,6 +922,58 @@ const CONFIG = {
           
           animateCut();
         });
+      });
+    }
+
+    function initContactForm() {
+      const form = document.getElementById('contact-form');
+      const submitButton = form.querySelector('button[type="submit"]');
+      const status = document.getElementById('contact-status');
+
+      form.addEventListener('input', () => {
+        if (form.dataset.submitting === 'true') return;
+        status.hidden = true;
+        status.textContent = '';
+        delete status.dataset.state;
+      });
+
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (form.dataset.submitting === 'true') return;
+
+        form.dataset.submitting = 'true';
+        submitButton.disabled = true;
+        status.hidden = false;
+        status.dataset.state = 'pending';
+        status.textContent = TRANSLATIONS[currentLanguage]['contact.sending'];
+
+        try {
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(Object.fromEntries(new FormData(form)))
+          });
+
+          if (!response.ok) {
+            throw new Error(`Contact endpoint returned status ${response.status}`);
+          }
+
+          const result = await response.json();
+          if (result.ok !== true) {
+            throw new Error('Contact endpoint did not confirm delivery.');
+          }
+
+          form.reset();
+          status.dataset.state = 'success';
+          status.textContent = TRANSLATIONS[currentLanguage]['contact.success'];
+        } catch (error) {
+          console.error('Contact form submission failed:', error);
+          status.dataset.state = 'error';
+          status.textContent = TRANSLATIONS[currentLanguage]['contact.error'];
+        } finally {
+          delete form.dataset.submitting;
+          submitButton.disabled = false;
+        }
       });
     }
 
@@ -739,14 +1149,14 @@ const CONFIG = {
         if (!allDead && frame < 120) {
           requestAnimationFrame(animateExplosion);
         } else {
-          fadeOutAndRedirect(canvas, targetUrl);
+          fadeOutAndReset(canvas, targetUrl);
         }
       }
       
       animateExplosion();
     }
 
-    function fadeOutAndRedirect(canvas, url) {
+    function fadeOutAndReset(canvas, targetUrl) {
       let alpha = 0;
       const ctx = canvas.getContext('2d');
       
@@ -758,10 +1168,16 @@ const CONFIG = {
         if (alpha < 1) {
           requestAnimationFrame(flashOut);
         } else {
-          if (url && url !== '#') {
-              window.open(url, '_blank');
+          if (targetUrl && targetUrl !== '#') {
+            const destinationWindow = window.open(targetUrl, '_blank');
+            if (destinationWindow) {
+              destinationWindow.opener = null;
+            } else {
+              window.location.assign(targetUrl);
+              return;
+            }
           }
-          
+
           setTimeout(() => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             document.querySelectorAll('.imperial-ship-card').forEach(card => {
@@ -780,4 +1196,5 @@ const CONFIG = {
 
     document.addEventListener('DOMContentLoaded', () => {
       initSaberButtons();
+      initContactForm();
     });
