@@ -51,6 +51,11 @@ const TRANSLATIONS = {
         'contact.sending': 'Transmitting message...',
         'contact.success': 'Transmission received. I will get back to you soon.',
         'contact.error': 'Transmission failed. Please try again later.',
+        'contact.notConfigured': 'The contact form is not configured yet.',
+        'contact.captcha': 'Complete the security check before sending.',
+        'contact.captchaRequired': 'Please complete the security check.',
+        'contact.captchaLoadError': 'The security check could not load. Please refresh the page and try again.',
+        'contact.spamDetected': 'The message could not be sent.',
         'contact.droidAlt': 'C-3PO, the golden communications droid transmitting messages',
         'contact.droidCaption': 'C-3PO // COMM-LINK TRANSMISSION',
         'footer.terminal': 'TERMINAL',
@@ -113,6 +118,11 @@ const TRANSLATIONS = {
         'contact.sending': 'Enviando transmissão...',
         'contact.success': 'Mensagem recebida. Entrarei em contato em breve.',
         'contact.error': 'Falha no envio. Tente novamente mais tarde.',
+        'contact.notConfigured': 'O formulário ainda não está configurado.',
+        'contact.captcha': 'Complete a verificação de segurança antes de enviar.',
+        'contact.captchaRequired': 'Complete a verificação de segurança.',
+        'contact.captchaLoadError': 'Não foi possível carregar a verificação de segurança. Atualize a página e tente novamente.',
+        'contact.spamDetected': 'Não foi possível enviar a mensagem.',
         'footer.terminal': 'TERMINAL',
         'footer.stardate': 'DATA ESTELAR',
         'footer.protocol': 'PROTOCOLO',
@@ -929,11 +939,55 @@ const CONFIG = {
       const form = document.getElementById('contact-form');
       const submitButton = form.querySelector('button[type="submit"]');
       const status = document.getElementById('contact-status');
+      const captchaContainer = document.getElementById('contact-captcha');
+      let captchaWidgetId = null;
+
+      function setStatus(key, state = 'error') {
+        status.hidden = false;
+        status.dataset.i18n = key;
+        status.dataset.state = state;
+        status.textContent = TRANSLATIONS[currentLanguage][key];
+      }
+
+      function resetCaptcha() {
+        if (captchaWidgetId !== null && window.grecaptcha) {
+          window.grecaptcha.reset(captchaWidgetId);
+        }
+      }
+
+      const config = window.EMAILJS_CONFIG || {};
+      const siteKey = typeof config.recaptchaSiteKey === 'string'
+        ? config.recaptchaSiteKey.trim()
+        : '';
+
+      if (siteKey && !siteKey.includes('YOUR_')) {
+        window.onContactRecaptchaLoaded = () => {
+          try {
+            captchaWidgetId = window.grecaptcha.render(captchaContainer, {
+              sitekey: siteKey
+            });
+          } catch (error) {
+            console.error('Contact form CAPTCHA initialization failed:', error);
+            setStatus('contact.captchaLoadError');
+          }
+        };
+
+        const captchaScript = document.createElement('script');
+        captchaScript.src = 'https://www.google.com/recaptcha/api.js?onload=onContactRecaptchaLoaded&render=explicit';
+        captchaScript.async = true;
+        captchaScript.defer = true;
+        captchaScript.onerror = () => {
+          console.error('Contact form CAPTCHA script failed to load.');
+          setStatus('contact.captchaLoadError');
+        };
+        document.head.appendChild(captchaScript);
+      }
 
       form.addEventListener('input', () => {
         if (form.dataset.submitting === 'true') return;
         status.hidden = true;
         status.textContent = '';
+        delete status.dataset.i18n;
         delete status.dataset.state;
       });
 
@@ -941,36 +995,67 @@ const CONFIG = {
         event.preventDefault();
         if (form.dataset.submitting === 'true') return;
 
+        const publicKey = typeof config.publicKey === 'string' ? config.publicKey.trim() : '';
+        const serviceId = typeof config.serviceId === 'string' ? config.serviceId.trim() : '';
+        const templateId = typeof config.templateId === 'string' ? config.templateId.trim() : '';
+        if (
+          !publicKey || publicKey.includes('YOUR_') ||
+          !serviceId || serviceId.includes('YOUR_') ||
+          !templateId || templateId.includes('YOUR_') ||
+          !siteKey || siteKey.includes('YOUR_')
+        ) {
+          setStatus('contact.notConfigured');
+          return;
+        }
+
+        if (form.elements.website.value.trim()) {
+          setStatus('contact.spamDetected');
+          return;
+        }
+
+        if (captchaWidgetId === null || !window.grecaptcha) {
+          setStatus('contact.captchaLoadError');
+          return;
+        }
+
+        const captchaResponse = window.grecaptcha.getResponse(captchaWidgetId);
+        if (!captchaResponse) {
+          setStatus('contact.captchaRequired');
+          return;
+        }
+
         form.dataset.submitting = 'true';
         submitButton.disabled = true;
-        status.hidden = false;
-        status.dataset.state = 'pending';
-        status.textContent = TRANSLATIONS[currentLanguage]['contact.sending'];
+        setStatus('contact.sending', 'pending');
 
         try {
-          const response = await fetch('/api/contact', {
+          const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(Object.fromEntries(new FormData(form)))
+            body: JSON.stringify({
+              service_id: serviceId,
+              template_id: templateId,
+              user_id: publicKey,
+              template_params: {
+                subject: form.elements.subject.value.trim(),
+                message: form.elements.message.value.trim(),
+                reply_to: form.elements.email.value.trim(),
+                'g-recaptcha-response': captchaResponse
+              }
+            })
           });
 
           if (!response.ok) {
-            throw new Error(`Contact endpoint returned status ${response.status}`);
-          }
-
-          const result = await response.json();
-          if (result.ok !== true) {
-            throw new Error('Contact endpoint did not confirm delivery.');
+            throw new Error(`EmailJS returned status ${response.status}`);
           }
 
           form.reset();
-          status.dataset.state = 'success';
-          status.textContent = TRANSLATIONS[currentLanguage]['contact.success'];
+          setStatus('contact.success', 'success');
         } catch (error) {
           console.error('Contact form submission failed:', error);
-          status.dataset.state = 'error';
-          status.textContent = TRANSLATIONS[currentLanguage]['contact.error'];
+          setStatus('contact.error');
         } finally {
+          resetCaptcha();
           delete form.dataset.submitting;
           submitButton.disabled = false;
         }

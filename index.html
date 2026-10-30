@@ -625,6 +625,8 @@
   <label for="contact-website">Leave this field empty</label>
   <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off"/>
 </div>
+<p class="contact-captcha-label" data-i18n="contact.captcha">Complete the security check before sending.</p>
+<div class="contact-captcha" id="contact-captcha" aria-label="Security check" data-i18n-attr="aria-label:contact.captcha"></div>
 <div class="saber-btn-wrapper w-full">
   <button class="saber-btn w-full" type="submit" data-target="send" data-i18n="contact.send">Send Transmission</button>
   <div class="saber-placeholder">
@@ -704,4 +706,5 @@
             </p>
 </div>
 </footer>
+<script src="assets/js/emailjs-config.js"></script>
 <script src="assets/js/main.js"></script></body></html>
