@@ -1,6 +1,6 @@
 window.EMAILJS_CONFIG = {
-  publicKey: 'YOUR_EMAILJS_PUBLIC_KEY',
-  serviceId: 'YOUR_EMAILJS_SERVICE_ID',
-  templateId: 'YOUR_EMAILJS_TEMPLATE_ID',
-  recaptchaSiteKey: 'YOUR_RECAPTCHA_V2_SITE_KEY'
+  publicKey: 'FTYQZGlxXiNJD5CSR',
+  serviceId: 'service_4c3jpwn',
+  templateId: 'template_b5d2o9k',
+  recaptchaSiteKey: '6LeNhAguAAAAAFA3M7Q-55tiHavyizlYVb0z36Xo'
 };

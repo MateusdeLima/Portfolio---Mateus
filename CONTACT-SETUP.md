@@ -34,6 +34,88 @@ Use a conta Gmail que deve enviar e receber as mensagens. A configuração do de
 
 As variáveis `subject`, `message` e `reply_to` são preenchidas pelo formulário. Ao responder ao e-mail recebido, o Gmail usará o endereço informado pela pessoa.
 
+### Modelo visual em HTML
+
+Na área **Content** do template, escolha **Edit Content → Code Editor**, substitua o conteúdo pelo HTML abaixo e salve. O layout usa tabelas e estilos inline para funcionar melhor em diferentes aplicativos de e-mail; não depende do CSS do site nem de fontes externas.
+
+```html
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Nova mensagem pelo portfólio</title>
+</head>
+<body style="margin:0; padding:0; background-color:#070b16; color:#e2e8f0; font-family:Arial, Helvetica, sans-serif;">
+  <div style="display:none; max-height:0; overflow:hidden; opacity:0; color:transparent;">
+    Nova mensagem recebida pelo Comm-Link do portfólio.
+  </div>
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#070b16" style="width:100%; background-color:#070b16;">
+    <tr>
+      <td align="center" style="padding:32px 16px;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%; max-width:620px; border:1px solid #164e63; border-radius:12px; overflow:hidden; background-color:#0f172a;">
+          <tr>
+            <td style="padding:26px 30px 22px; border-bottom:1px solid #164e63; background-color:#0b1220;">
+              <p style="margin:0 0 10px; color:#fbbf24; font-size:11px; font-weight:bold; letter-spacing:3px; text-transform:uppercase;">
+                Mateus de Lima Silva <span style="color:#22d3ee;">//</span> Portfólio
+              </p>
+              <h1 style="margin:0; color:#67e8f9; font-size:23px; line-height:1.35; letter-spacing:1px;">
+                NOVA TRANSMISSÃO RECEBIDA
+              </h1>
+              <p style="margin:10px 0 0; color:#94a3b8; font-size:13px; line-height:1.6;">
+                Uma nova mensagem chegou pelo canal de contato.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:28px 30px 10px;">
+              <p style="margin:0 0 9px; color:#22d3ee; font-size:11px; font-weight:bold; letter-spacing:2px; text-transform:uppercase;">
+                Assunto da proposta
+              </p>
+              <div style="padding:14px 16px; border:1px solid #164e63; border-left:3px solid #22d3ee; border-radius:6px; background-color:#070b16; color:#f8fafc; font-size:16px; line-height:1.5; overflow-wrap:anywhere;">
+                {{subject}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:18px 30px 10px;">
+              <p style="margin:0 0 9px; color:#22d3ee; font-size:11px; font-weight:bold; letter-spacing:2px; text-transform:uppercase;">
+                Mensagem
+              </p>
+              <div style="padding:18px 16px; border:1px solid #1e293b; border-radius:6px; background-color:#111c30; color:#cbd5e1; font-size:15px; line-height:1.75; white-space:pre-wrap; overflow-wrap:anywhere;">{{message}}</div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:18px 30px 28px;">
+              <p style="margin:0 0 8px; color:#94a3b8; font-size:12px; line-height:1.6;">
+                Para responder, use a opção <strong style="color:#fbbf24;">Responder</strong> no seu aplicativo de e-mail.
+              </p>
+              <p style="margin:0; color:#64748b; font-size:12px; line-height:1.6; overflow-wrap:anywhere;">
+                E-mail informado: <span style="color:#67e8f9;">{{reply_to}}</span>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="height:3px; background-color:#22d3ee; font-size:0; line-height:0;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="padding:15px 30px; background-color:#0b1220;">
+              <p style="margin:0; color:#64748b; font-size:10px; letter-spacing:2px; text-transform:uppercase;">
+                COMM-LINK <span style="color:#fbbf24;">//</span> FIM DA TRANSMISSÃO
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+```
+
+Mantenha `{{subject}}`, `{{message}}` e `{{reply_to}}` exatamente como estão, incluindo as chaves duplas. O EmailJS substitui esses campos pelos valores enviados pelo formulário. As chaves duplas também fazem escape do conteúdo, o que é mais seguro para texto digitado por visitantes; não troque `{{message}}` por `{{{message}}}`.
+
 ## 4. Configure a verificação reCAPTCHA
 
 O site envia uma chave pública do EmailJS no navegador, como previsto pelo serviço. Para reduzir envios automatizados, o formulário exige reCAPTCHA v2 e a verificação do token pelo EmailJS.
