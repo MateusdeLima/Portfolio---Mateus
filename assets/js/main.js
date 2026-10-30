@@ -54,6 +54,7 @@ const TRANSLATIONS = {
         'contact.notConfigured': 'The contact form is not configured yet.',
         'contact.captcha': 'Complete the security check before sending.',
         'contact.captchaRequired': 'Please complete the security check.',
+        'contact.captchaInvalid': 'The security check was rejected. Complete it again and retry. If the problem continues, verify the reCAPTCHA keys and template settings.',
         'contact.captchaLoadError': 'The security check could not load. Please refresh the page and try again.',
         'contact.spamDetected': 'The message could not be sent.',
         'contact.droidAlt': 'C-3PO, the golden communications droid transmitting messages',
@@ -121,6 +122,7 @@ const TRANSLATIONS = {
         'contact.notConfigured': 'O formulário ainda não está configurado.',
         'contact.captcha': 'Complete a verificação de segurança antes de enviar.',
         'contact.captchaRequired': 'Complete a verificação de segurança.',
+        'contact.captchaInvalid': 'A verificação de segurança foi rejeitada. Faça-a novamente e tente enviar. Se persistir, confira as chaves e as configurações do template reCAPTCHA.',
         'contact.captchaLoadError': 'Não foi possível carregar a verificação de segurança. Atualize a página e tente novamente.',
         'contact.spamDetected': 'Não foi possível enviar a mensagem.',
         'footer.terminal': 'TERMINAL',
@@ -1056,7 +1058,10 @@ const CONFIG = {
           setStatus('contact.success', 'success');
         } catch (error) {
           console.error('Contact form submission failed:', error);
-          setStatus('contact.error');
+          const statusKey = error instanceof Error && /reCAPTCHA:\s*invalid-input-response/i.test(error.message)
+            ? 'contact.captchaInvalid'
+            : 'contact.error';
+          setStatus(statusKey);
         } finally {
           resetCaptcha();
           delete form.dataset.submitting;

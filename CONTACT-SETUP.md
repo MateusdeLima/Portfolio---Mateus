@@ -8,7 +8,7 @@ Esta integração funciona em um site estático e não exige domínio próprio, 
 
 1. Importe o repositório do portfólio na [Vercel](https://vercel.com/) ou use o projeto que já está conectado.
 2. Aguarde o deploy e abra o endereço gratuito `*.vercel.app` atribuído ao projeto. Não é necessário comprar um domínio.
-3. Anote o hostname exibido na Vercel, por exemplo `meu-portfolio.vercel.app`. Você vai cadastrá-lo no reCAPTCHA.
+3. Anote o hostname exato exibido na Vercel, por exemplo `meu-portfolio.vercel.app`. Você vai cadastrá-lo no reCAPTCHA. Se testar um deploy de Preview com outro hostname, esse hostname também precisa estar autorizado.
 
 O formulário não enviará mensagens até que as etapas de configuração abaixo sejam concluídas.
 
@@ -121,12 +121,14 @@ Mantenha `{{subject}}`, `{{message}}` e `{{reply_to}}` exatamente como estão, i
 O site envia uma chave pública do EmailJS no navegador, como previsto pelo serviço. Para reduzir envios automatizados, o formulário exige reCAPTCHA v2 e a verificação do token pelo EmailJS.
 
 1. Abra o [painel de administração do reCAPTCHA](https://www.google.com/recaptcha/admin/create) e registre um site com **reCAPTCHA v2 → “I'm not a robot” Checkbox**.
-2. Em domínios permitidos, adicione o hostname da Vercel anotado na etapa 1, sem `https://`, barras ou caminhos. Para testes locais, adicione também `localhost`.
+2. Em domínios permitidos, adicione o hostname da Vercel anotado na etapa 1, sem `https://`, barras ou caminhos. Para testes locais via servidor HTTP, adicione também `localhost`.
 3. Conclua o cadastro e copie a **Site Key** e a **Secret Key**.
 4. No EmailJS, abra o template, vá à aba **Settings** e habilite **Enable reCAPTCHA V2 verification**.
 5. Cole a **Secret Key** no campo correspondente do EmailJS e salve. Não coloque essa chave no site nem no Git.
 
 O navegador carrega o reCAPTCHA usando a Site Key e envia a resposta junto com o pedido ao EmailJS. O envio é recusado pelo provedor se a pessoa não completar a verificação.
+
+**Importante:** abra o formulário por um endereço `https://...` publicado ou por `http://localhost:...`. Abrir `index.html` diretamente (`file://`) não fornece um domínio válido para o reCAPTCHA e causa o aviso **“domínio inválido para a chave de site”**. Se o aviso aparecer no site publicado, confira se o hostname que aparece na barra do navegador foi cadastrado na lista de domínios da chave reCAPTCHA usada como `recaptchaSiteKey`; não inclua protocolo, caminho ou porta.
 
 ## 5. Preencha a configuração pública do site
 
@@ -170,7 +172,7 @@ Abra `http://localhost:8000`. Não abra o arquivo `index.html` diretamente como 
 
 - **O formulário diz que ainda não está configurado:** confira se os três IDs e as duas chaves públicas em `assets/js/emailjs-config.js` foram preenchidos e se o deploy terminou.
 - **O reCAPTCHA não aparece:** confira a Site Key, o hostname autorizado no painel do Google e se o hostname corresponde exatamente ao endereço aberto.
-- **A verificação do reCAPTCHA falha:** confira se a Secret Key correta foi salva nas configurações do template EmailJS e se a opção de reCAPTCHA v2 está habilitada.
+- **O EmailJS retorna `reCAPTCHA: invalid-input-response`:** a resposta do checkbox chegou ao EmailJS, mas o Google não aceitou o token. Faça o checkbox e envie logo em seguida; cada token expira e só pode ser usado uma vez. Se continuar, confirme que `recaptchaSiteKey` no arquivo de configuração é a **Site Key** da mesma configuração reCAPTCHA cuja **Secret Key** foi cadastrada em **Settings → Enable reCAPTCHA V2 verification** do mesmo template EmailJS. Confirme também que o site foi cadastrado como **reCAPTCHA v2 Checkbox**, que o hostname atual está autorizado e que o template correto está selecionado. Não inverta nem misture Site Key e Secret Key.
 - **O EmailJS rejeita o envio:** abra o Console do navegador e leia o detalhe após `EmailJS returned status` no erro `Contact form submission failed`. Um HTTP 400 significa que o EmailJS recebeu a requisição, mas rejeitou a configuração ou os dados. Confira os IDs do serviço/template, os nomes das variáveis, se o reCAPTCHA v2 está habilitado no template e se a Secret Key está correta. Resolva o reCAPTCHA novamente antes de cada tentativa, pois o token expira e é de uso único. Consulte também o histórico de envios no painel EmailJS.
 - **Não recebeu a mensagem:** verifique Spam e confirme que o campo **To Email** do template contém `silvamateusdelima99@gmail.com`.
 
