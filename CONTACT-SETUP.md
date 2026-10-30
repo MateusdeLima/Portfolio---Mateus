@@ -36,7 +36,7 @@ As variáveis `subject`, `message` e `reply_to` são preenchidas pelo formulári
 
 ### Modelo visual em HTML
 
-Na área **Content** do template, escolha **Edit Content → Code Editor**, substitua o conteúdo pelo HTML abaixo e salve. O layout usa tabelas e estilos inline para funcionar melhor em diferentes aplicativos de e-mail; não depende do CSS do site nem de fontes externas.
+Na área **Content** do template, escolha **Edit Content → Code Editor** e substitua todo o conteúdo pelo HTML abaixo. Copie **somente o código dentro do bloco**, começando em `<!doctype html>` e terminando em `</html>`. Não copie o título da seção, as instruções, nem as linhas de marcação ```` ```html ```` e ```` ``` ````. Se copiar o texto do guia junto, ele aparecerá no e-mail como texto, antes ou depois do layout. Depois, salve o template. O layout usa tabelas e estilos inline para funcionar melhor em diferentes aplicativos de e-mail; não depende do CSS do site nem de fontes externas.
 
 ```html
 <!doctype html>

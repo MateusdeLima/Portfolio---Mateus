@@ -1061,3 +1061,166 @@ body {
     transition: none;
   }
 }
+
+#about,
+#study-projects,
+#contact {
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+#about {
+  display: flex;
+  align-items: center;
+  padding-top: clamp(5rem, 10vh, 7rem);
+  padding-bottom: clamp(2rem, 5vh, 4rem);
+}
+
+#about > .grid {
+  width: 100%;
+}
+
+#study-projects {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: clamp(4.5rem, 8vh, 6rem);
+  padding-bottom: clamp(1.5rem, 4vh, 2.5rem);
+}
+
+#study-projects .archives-title {
+  margin-bottom: clamp(0.75rem, 2vh, 1.5rem);
+}
+
+#study-projects .archive-terminal {
+  padding: clamp(14px, 2.4vw, 28px);
+}
+
+#study-projects .archive-terminal-heading {
+  margin-bottom: clamp(12px, 2vh, 20px);
+  padding-bottom: clamp(10px, 1.5vh, 16px);
+}
+
+#study-projects .archive-files {
+  max-height: clamp(120px, 27vh, 250px);
+  gap: 12px;
+}
+
+#study-projects .archive-file {
+  min-height: 180px;
+  padding: 14px;
+}
+
+#study-projects .archive-data-cable {
+  width: 64px;
+  height: 48px;
+}
+
+#study-projects .archive-r2d2 {
+  width: clamp(96px, 12vw, 128px);
+}
+
+#contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding-top: clamp(4.5rem, 8vh, 6rem);
+  padding-bottom: clamp(1rem, 3vh, 2rem);
+}
+
+#contact > div:first-child {
+  padding: 16px 24px;
+}
+
+#contact h2 {
+  margin-bottom: 14px;
+}
+
+#contact #contact-form > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 8px;
+}
+
+#contact #contact-message {
+  height: clamp(4rem, 8vh, 5rem);
+}
+
+#contact .contact-captcha {
+  min-height: 72px;
+}
+
+#contact .comm-link-droid {
+  margin-top: 0;
+}
+
+#contact .comm-link-droid-head {
+  width: clamp(88px, 12vh, 108px);
+}
+
+@media (max-width: 640px) {
+  #about {
+    padding-top: 5.5rem;
+    padding-bottom: 2rem;
+  }
+
+  #study-projects {
+    padding-top: 5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  #study-projects .archive-files {
+    max-height: 26vh;
+  }
+
+  #contact {
+    padding-top: 5rem;
+    padding-bottom: 1rem;
+  }
+
+  #contact > div:first-child {
+    padding: 16px;
+  }
+}
+
+.footer-social-link {
+  color: #64748b;
+  text-decoration: none;
+  transition: color 180ms ease, text-shadow 180ms ease;
+}
+
+.footer-social-link:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 5px;
+}
+
+.footer-linkedin:hover,
+.footer-linkedin:focus-visible {
+  color: #0a66c2;
+  text-shadow: 0 0 12px rgba(10, 102, 194, 0.6);
+}
+
+.footer-github:hover,
+.footer-github:focus-visible {
+  color: #f0f6fc;
+  text-shadow: 0 0 12px rgba(240, 246, 252, 0.55);
+}
+
+.footer-whatsapp:hover,
+.footer-whatsapp:focus-visible {
+  color: #25d366;
+  text-shadow: 0 0 12px rgba(37, 211, 102, 0.58);
+}
+
+.footer-copyright {
+  color: #fbbf24;
+  text-align: center;
+}
+
+.footer-tagline {
+  color: #67e8f9;
+  opacity: 0.8;
+  text-shadow: 0 0 10px rgba(34, 211, 238, 0.28);
+  text-align: center;
+}
