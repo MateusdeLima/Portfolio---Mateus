@@ -142,6 +142,8 @@ body.loading-active {
           display: none;
           align-items: center;
           justify-content: center;
+          min-width: 44px;
+          min-height: 44px;
           padding: 6px;
           border: 1px solid transparent;
           background: transparent;
@@ -180,6 +182,7 @@ body.loading-active {
           }
 
           .header-navigation > a {
+            min-height: 44px;
             padding: 14px 12px;
             border-bottom: 1px solid rgba(0, 212, 255, 0.12);
           }
@@ -191,6 +194,8 @@ body.loading-active {
           .header-navigation .language-toggle {
             align-self: flex-start;
             margin: 12px;
+            min-height: 44px;
+            height: 44px;
           }
         }
 
@@ -222,6 +227,30 @@ body.loading-active {
             white-space: pre-wrap;
             position: relative;
             z-index: 2;
+        }
+
+        #skip-opening {
+            position: absolute;
+            top: max(16px, env(safe-area-inset-top));
+            right: max(16px, env(safe-area-inset-right));
+            z-index: 3;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 10px 16px;
+            border: 1px solid rgba(0, 212, 255, 0.65);
+            background: rgba(0, 24, 34, 0.85);
+            color: #c9f8ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        #skip-opening:hover,
+        #skip-opening:focus-visible {
+            background: rgba(0, 100, 130, 0.55);
+            box-shadow: 0 0 14px rgba(0, 212, 255, 0.38);
         }
         .fade-out {
             opacity: 0 !important;
@@ -651,6 +680,20 @@ body {
   .imperial-fleet-grid {
     grid-template-columns: minmax(0, 1fr);
   }
+
+  .imperial-ship-card {
+    padding: 16px;
+  }
+
+  .project-desc {
+    font-size: 13px;
+  }
+
+  .action-btn {
+    min-height: 44px;
+    padding: 10px 8px;
+    font-size: 11px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1048,6 +1091,14 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+
   .archive-terminal-status > span:first-child,
   .archive-cable-signal,
   .archive-cable-node,
@@ -1060,6 +1111,11 @@ body {
   .archive-file {
     transition: none;
   }
+}
+
+:where(a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid #00d4ff !important;
+  outline-offset: 3px;
 }
 
 #about,

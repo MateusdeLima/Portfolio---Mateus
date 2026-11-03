@@ -66,7 +66,8 @@ const TRANSLATIONS = {
         'footer.tagline': 'May the code be with you',
         'page.title': 'Mateus de Lima Silva - Full Stack Developer',
         'language.toggle': 'Switch page to Portuguese',
-        'opening.crawl': 'A long time ago in a galaxy far, far away...'
+        'opening.crawl': 'A long time ago in a galaxy far, far away...',
+        'opening.skip': 'Skip intro'
     },
     pt: {
         'nav.home': 'INÍCIO',
@@ -135,7 +136,8 @@ const TRANSLATIONS = {
         'language.toggle': 'Switch page to English',
         'contact.droidAlt': 'C-3PO, o droide de comunicação dourado transmitindo mensagens',
         'contact.droidCaption': 'C-3PO // TRANSMITINDO MENSAGEM PELO COMM-LINK',
-        'opening.crawl': 'Há muito tempo, em uma galáxia muito, muito distante...'
+        'opening.crawl': 'Há muito tempo, em uma galáxia muito, muito distante...',
+        'opening.skip': 'Pular abertura'
     }
 };
 
@@ -208,6 +210,11 @@ const CONFIG = {
     let resizeTimeout = null;
     let viewportWidth = 0;
     let viewportHeight = 0;
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const OPENING_SESSION_KEY = 'portfolio-opening-seen';
+    let openingTimeout = null;
+    let openingAnimationFrame = null;
+    let siteStarted = false;
 
     const languageToggle = document.getElementById('language-toggle');
     languageToggle.addEventListener('click', () => {
@@ -221,29 +228,100 @@ const CONFIG = {
         mobileMenuToggle.setAttribute('aria-expanded', String(!isOpen));
         mainNavigation.classList.toggle('is-open', !isOpen);
         updateMobileMenuLabel();
+        if (!isOpen) mainNavigation.querySelector('.nav-link:not(.hidden)')?.focus();
+    });
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && mainNavigation.classList.contains('is-open')) {
+            mainNavigation.classList.remove('is-open');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            updateMobileMenuLabel();
+            mobileMenuToggle.focus();
+        }
     });
 
     applyLanguage(currentLanguage);
 
     // Loading Screen Logic
-    window.addEventListener('load', () => {
+    function hasSeenOpening() {
+        try {
+            return sessionStorage.getItem(OPENING_SESSION_KEY) === 'true';
+        } catch (error) {
+            console.warn('Could not read the opening-session preference:', error);
+            return false;
+        }
+    }
+
+    function markOpeningSeen() {
+        try {
+            sessionStorage.setItem(OPENING_SESSION_KEY, 'true');
+        } catch (error) {
+            console.warn('Could not save the opening-session preference:', error);
+        }
+    }
+
+    function startSite() {
+        if (siteStarted) return;
+        siteStarted = true;
+        const shouldFocusMainContent = document.activeElement.id === 'skip-opening';
+        clearTimeout(openingTimeout);
+        if (openingAnimationFrame !== null) {
+            cancelAnimationFrame(openingAnimationFrame);
+            openingAnimationFrame = null;
+        }
+        const loadingScreen = document.getElementById('loading-screen');
+        loadingScreen.style.display = 'none';
+        document.body.classList.remove('loading-active');
+        initBattleSystem();
+        if (shouldFocusMainContent) document.querySelector('#hero h1')?.focus();
+    }
+
+    function startOpening() {
+        const openingWasShown = hasSeenOpening();
+        if (openingWasShown || reducedMotionQuery.matches) {
+            if (!openingWasShown) markOpeningSeen();
+            startSite();
+            return;
+        }
+
+        markOpeningSeen();
         const openingText = document.getElementById('opening-text');
+        const skipButton = document.getElementById('skip-opening');
         const text = TRANSLATIONS[currentLanguage]['opening.crawl'];
         let i = 0;
+
+        skipButton.hidden = false;
+        skipButton.addEventListener('click', startSite, { once: true });
+
         function typeWriter() {
+            if (siteStarted) return;
             if (i < text.length) {
-                openingText.innerHTML += text.charAt(i);
+                openingText.textContent += text.charAt(i);
                 i++;
-                setTimeout(typeWriter, 60);
+                openingTimeout = setTimeout(typeWriter, 60);
             } else {
-                setTimeout(() => {
+                openingTimeout = setTimeout(() => {
                     openingText.classList.add('fade-out');
                     runHyperspaceEntrance();
                 }, 1800);
             }
         }
-        typeWriter();
-    });
+
+        const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+        fontsReady.then(() => {
+            if (!siteStarted) typeWriter();
+        });
+    }
+
+    function initializeOpening() {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startOpening, { once: true });
+        } else {
+            startOpening();
+        }
+    }
+
+    initializeOpening();
 
     function runHyperspaceEntrance() {
         const hsCanvas = document.getElementById('loading-hyperspace');
@@ -293,16 +371,12 @@ const CONFIG = {
             if (t > 3.5) {
                 const loadingScreen = document.getElementById('loading-screen');
                 loadingScreen.classList.add('fade-out');
-                setTimeout(() => {
-                    loadingScreen.style.display = 'none';
-                    document.body.classList.remove('loading-active');
-                    initBattleSystem();
-                }, 1000);
+                openingTimeout = setTimeout(startSite, 1000);
                 return;
             }
-            requestAnimationFrame(animate);
+            openingAnimationFrame = requestAnimationFrame(animate);
         }
-        requestAnimationFrame(animate);
+        openingAnimationFrame = requestAnimationFrame(animate);
     }
 
     function initBattleSystem() {
@@ -381,6 +455,11 @@ const CONFIG = {
         battleFrameId = null;
         if (!battleInitialized || document.hidden) return;
 
+        if (reducedMotionQuery.matches) {
+            drawStaticScene(activeSceneId);
+            return;
+        }
+
         const canvas = sceneCanvases[activeSceneId];
         const background = sceneBackgrounds[activeSceneId];
         if (canvas && background && canvas.parentElement.classList.contains('active')) {
@@ -393,8 +472,10 @@ const CONFIG = {
     }
 
     function startBattleLoop() {
-        if (battleInitialized && !document.hidden && battleFrameId === null) {
+        if (battleInitialized && !reducedMotionQuery.matches && !document.hidden && battleFrameId === null) {
             battleFrameId = requestAnimationFrame(renderBattleFrame);
+        } else if (battleInitialized && reducedMotionQuery.matches) {
+            drawStaticScene(activeSceneId);
         }
     }
 
@@ -403,6 +484,32 @@ const CONFIG = {
             cancelAnimationFrame(battleFrameId);
             battleFrameId = null;
         }
+    }
+
+    function drawStaticScene(sceneId) {
+        const canvas = sceneCanvases[sceneId];
+        const background = sceneBackgrounds[sceneId];
+        if (!canvas || !background) return;
+        canvas.getContext('2d').drawImage(background, 0, 0);
+    }
+
+    function handleReducedMotionChange() {
+        if (reducedMotionQuery.matches && !siteStarted) {
+            startSite();
+        }
+        if (!battleInitialized) return;
+        if (reducedMotionQuery.matches) {
+            stopBattleLoop();
+            drawStaticScene(activeSceneId);
+        } else {
+            startBattleLoop();
+        }
+    }
+
+    if (reducedMotionQuery.addEventListener) {
+        reducedMotionQuery.addEventListener('change', handleReducedMotionChange);
+    } else {
+        reducedMotionQuery.addListener(handleReducedMotionChange);
     }
 
     document.addEventListener('visibilitychange', () => {
@@ -950,6 +1057,7 @@ const CONFIG = {
         document.getElementById(sceneId).classList.add('active');
         activeSceneId = sceneId;
         updateHomeButton(sceneId);
+        if (reducedMotionQuery.matches && battleInitialized) drawStaticScene(sceneId);
     }
 
     document.querySelectorAll('.nav-link').forEach(link => {
@@ -957,6 +1065,9 @@ const CONFIG = {
             mobileMenuToggle.setAttribute('aria-expanded', 'false');
             mainNavigation.classList.remove('is-open');
             updateMobileMenuLabel();
+            if (mainNavigation.contains(link) && window.innerWidth < 768) {
+                mobileMenuToggle.focus();
+            }
             // Only prevent default if it's an a tag and doesn't have saber-btn class.
             // If it has saber-btn, initSaberButtons handles the click.
             if (!link.classList.contains('saber-btn') && link.tagName === 'A') {
