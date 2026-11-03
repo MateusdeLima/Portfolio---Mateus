@@ -380,7 +380,7 @@ body.loading-active {
             background: #fff;
             border-radius: 0 3px 3px 0;
             box-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 30px #00d4ff, 0 0 40px #00d4ff;
-            transition: transform 0.3s ease-out;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 1;
             transform-origin: left center;
             transform: scaleX(0);
@@ -388,6 +388,7 @@ body.loading-active {
         
         .saber-btn-wrapper:hover .saber-blade {
             transform: scaleX(1);
+            transition-delay: 100ms;
         }
         
         .saber-cut-canvas {
