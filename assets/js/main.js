@@ -196,11 +196,18 @@ const CONFIG = {
     };
 
     let activeSceneId = 'scene-hero';
-    let ships = [];
-    let lasers = [];
-    let explosions = [];
-    let traffic = [];
-    let beams = [];
+    let ships = {};
+    let lasers = {};
+    let explosions = {};
+    let traffic = {};
+    let beams = {};
+    const sceneCanvases = {};
+    const sceneBackgrounds = {};
+    let battleInitialized = false;
+    let battleFrameId = null;
+    let resizeTimeout = null;
+    let viewportWidth = 0;
+    let viewportHeight = 0;
 
     const languageToggle = document.getElementById('language-toggle');
     languageToggle.addEventListener('click', () => {
@@ -246,8 +253,7 @@ const CONFIG = {
         const ctx = hsCanvas.getContext('2d');
         
         let t = 0;
-        const cx = hsCanvas.width/2;
-        const cy = hsCanvas.height/2;
+        let previousTime = null;
         const stars = Array.from({length: 200}, () => ({
             angle: Math.random() * Math.PI * 2,
             dist: Math.random() * 100,
@@ -255,19 +261,27 @@ const CONFIG = {
             len: 5 + Math.random() * 20
         }));
 
-        function animate() {
+        function animate(timestamp) {
+            const deltaSeconds = previousTime === null
+                ? 0
+                : Math.min((timestamp - previousTime) / 1000, 0.05);
+            previousTime = timestamp;
+            const frameScale = deltaSeconds * 60;
+            t += 0.05 * frameScale;
+            const cx = hsCanvas.width / 2;
+            const cy = hsCanvas.height / 2;
+
             ctx.fillStyle = 'black';
             ctx.fillRect(0,0,hsCanvas.width, hsCanvas.height);
-            t += 0.05;
 
             ctx.strokeStyle = 'white';
             ctx.lineWidth = 2;
             stars.forEach(s => {
-                s.dist += s.speed * t;
+                s.dist += s.speed * t * frameScale;
                 const x1 = cx + Math.cos(s.angle) * s.dist;
                 const y1 = cy + Math.sin(s.angle) * s.dist;
-                const x2 = cx + Math.cos(s.angle) * (s.dist + s.len * t);
-                const y2 = cy + Math.sin(s.angle) * (s.dist + s.len * t);
+                const x2 = cx + Math.cos(s.angle) * (s.dist + s.len * t * frameScale);
+                const y2 = cy + Math.sin(s.angle) * (s.dist + s.len * t * frameScale);
                 ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
             });
 
@@ -288,53 +302,116 @@ const CONFIG = {
             }
             requestAnimationFrame(animate);
         }
-        animate();
+        requestAnimationFrame(animate);
     }
 
     function initBattleSystem() {
-        const canvases = document.querySelectorAll('.stars-bg');
-        canvases.forEach(canvas => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            const sceneId = canvas.parentElement.id;
-            const ctx = canvas.getContext('2d');
-            
-            // Stars background (static once generated)
-            const sceneStars = [];
-            for (let i = 0; i < (CONFIG.isMobile ? 100 : 300); i++) {
-                sceneStars.push({x: Math.random() * canvas.width, y: Math.random() * canvas.height, s: Math.random() * 2});
-            }
+        if (battleInitialized) return;
 
-            // Game Loop for this scene
-            function frame() {
-                if (canvas.parentElement.classList.contains('active')) {
-                    // Background
-                    ctx.fillStyle = '#000';
-                    ctx.fillRect(0,0,canvas.width, canvas.height);
-                    
-                    // Starfield
-                    ctx.fillStyle = '#fff';
-                    sceneStars.forEach(s => ctx.fillRect(s.x, s.y, s.s, s.s));
-                    
-                    // Planet & Scenery Elements
-                    drawPlanet(ctx, sceneId, canvas);
-
-                    // Ships, Lasers, Explosions
-                    updateScene(sceneId, ctx, canvas);
-
-                    // Vignette Overlay
-                    const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-                    grad.addColorStop(0, 'transparent');
-                    grad.addColorStop(1, 'rgba(5,5,5,0.8)');
-                    ctx.fillStyle = grad;
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                }
-                requestAnimationFrame(frame);
-            }
-            setupSceneData(sceneId, canvas);
-            frame();
+        document.querySelectorAll('.stars-bg').forEach(canvas => {
+            sceneCanvases[canvas.parentElement.id] = canvas;
         });
+
+        resizeBattleScenes();
+        Object.entries(sceneCanvases).forEach(([sceneId, canvas]) => {
+            setupSceneData(sceneId, canvas);
+        });
+        battleInitialized = true;
+        startBattleLoop();
     }
+
+    function renderSceneBackground(sceneId, canvas) {
+        const background = document.createElement('canvas');
+        background.width = canvas.width;
+        background.height = canvas.height;
+        const ctx = background.getContext('2d');
+
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, background.width, background.height);
+
+        ctx.fillStyle = '#fff';
+        const starCount = CONFIG.isMobile ? 100 : 300;
+        for (let i = 0; i < starCount; i++) {
+            const size = Math.random() * 2;
+            ctx.fillRect(
+                Math.random() * background.width,
+                Math.random() * background.height,
+                size,
+                size
+            );
+        }
+
+        drawPlanet(ctx, sceneId, background);
+
+        const vignette = ctx.createLinearGradient(0, 0, 0, background.height);
+        vignette.addColorStop(0, 'transparent');
+        vignette.addColorStop(1, 'rgba(5,5,5,0.8)');
+        ctx.fillStyle = vignette;
+        ctx.fillRect(0, 0, background.width, background.height);
+
+        sceneBackgrounds[sceneId] = background;
+    }
+
+    function resizeBattleScenes() {
+        const width = Math.max(1, window.innerWidth);
+        const height = Math.max(1, window.innerHeight);
+        const scaleX = viewportWidth ? width / viewportWidth : 1;
+        const scaleY = viewportHeight ? height / viewportHeight : 1;
+
+        Object.entries(sceneCanvases).forEach(([sceneId, canvas]) => {
+            if (viewportWidth && viewportHeight) {
+                [ships, lasers, explosions, traffic, beams].forEach(sceneMap => {
+                    (sceneMap[sceneId] || []).forEach(entity => {
+                        if (typeof entity.x === 'number') entity.x *= scaleX;
+                        if (typeof entity.y === 'number') entity.y *= scaleY;
+                    });
+                });
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            renderSceneBackground(sceneId, canvas);
+        });
+
+        viewportWidth = width;
+        viewportHeight = height;
+    }
+
+    function renderBattleFrame() {
+        battleFrameId = null;
+        if (!battleInitialized || document.hidden) return;
+
+        const canvas = sceneCanvases[activeSceneId];
+        const background = sceneBackgrounds[activeSceneId];
+        if (canvas && background && canvas.parentElement.classList.contains('active')) {
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(background, 0, 0);
+            updateScene(activeSceneId, ctx, canvas, performance.now());
+        }
+
+        battleFrameId = requestAnimationFrame(renderBattleFrame);
+    }
+
+    function startBattleLoop() {
+        if (battleInitialized && !document.hidden && battleFrameId === null) {
+            battleFrameId = requestAnimationFrame(renderBattleFrame);
+        }
+    }
+
+    function stopBattleLoop() {
+        if (battleFrameId !== null) {
+            cancelAnimationFrame(battleFrameId);
+            battleFrameId = null;
+        }
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopBattleLoop();
+        } else {
+            startBattleLoop();
+        }
+    });
 
     function drawPlanet(ctx, sceneId, canvas) {
         ctx.save();
@@ -571,7 +648,9 @@ const CONFIG = {
                 angle: Math.random() * Math.PI * 2,
                 hp: 100,
                 cooldown: 0,
-                state: s.f === 'abandoned' ? 'static' : 'active'
+                state: s.f === 'abandoned' ? 'static' : 'active',
+                respawnAt: null,
+                fadeIn: 1
             });
         });
         ships[id] = sceneShips;
@@ -588,7 +667,34 @@ const CONFIG = {
         }
     }
 
-    function updateScene(id, ctx, canvas) {
+    function respawnShip(ship, canvas) {
+        const edge = Math.floor(Math.random() * 4);
+        if (edge === 0) {
+            ship.x = 0;
+            ship.y = Math.random() * canvas.height;
+        } else if (edge === 1) {
+            ship.x = canvas.width;
+            ship.y = Math.random() * canvas.height;
+        } else if (edge === 2) {
+            ship.x = Math.random() * canvas.width;
+            ship.y = 0;
+        } else {
+            ship.x = Math.random() * canvas.width;
+            ship.y = canvas.height;
+        }
+
+        ship.angle = Math.atan2(canvas.height / 2 - ship.y, canvas.width / 2 - ship.x)
+            + (Math.random() - 0.5) * 0.8;
+        const speed = 0.4 + Math.random() * 1.1;
+        ship.vx = Math.cos(ship.angle) * speed;
+        ship.vy = Math.sin(ship.angle) * speed;
+        ship.hp = 100;
+        ship.cooldown = CONFIG.isMobile ? 120 : 60;
+        ship.respawnAt = null;
+        ship.fadeIn = 0;
+    }
+
+    function updateScene(id, ctx, canvas, now) {
         const cfg = CONFIG.scenes[id];
         const sceneShips = ships[id] || [];
         const sceneLasers = lasers[id] || [];
@@ -596,6 +702,14 @@ const CONFIG = {
 
         // 1. Update & Draw Ships
         sceneShips.forEach(ship => {
+            if (ship.hp <= 0) {
+                if (ship.state !== 'static' && ship.respawnAt !== null && now >= ship.respawnAt) {
+                    respawnShip(ship, canvas);
+                } else {
+                    return;
+                }
+            }
+
             if (ship.state !== 'static') {
                 ship.x += ship.vx;
                 ship.y += ship.vy;
@@ -613,10 +727,11 @@ const CONFIG = {
                     if (target) {
                         const dist = Math.hypot(target.x - ship.x, target.y - ship.y);
                         if (dist < 400 && sceneLasers.length < CONFIG.maxLasers) {
+                            const targetAngle = Math.atan2(target.y - ship.y, target.x - ship.x);
                             sceneLasers.push({
                                 x: ship.x, y: ship.y,
-                                vx: Math.cos(ship.angle) * 8,
-                                vy: Math.sin(ship.angle) * 8,
+                                vx: Math.cos(targetAngle) * 8,
+                                vy: Math.sin(targetAngle) * 8,
                                 color: ship.faction === 'rebel' ? '#f00' : (ship.faction === 'empire' ? '#0f0' : '#0df'),
                                 owner: ship.faction,
                                 life: 100
@@ -626,8 +741,9 @@ const CONFIG = {
                     }
                 }
                 if (ship.cooldown > 0) ship.cooldown--;
+                ship.fadeIn = Math.min(1, ship.fadeIn + 0.04);
             }
-            if (ship.hp > 0) drawShip(ctx, ship);
+            if (ship.hp > 0) drawShip(ctx, ship, ship.fadeIn);
         });
 
         // 2. Update & Draw Lasers
@@ -650,6 +766,7 @@ const CONFIG = {
                     s.hp -= 25;
                     l.life = 0;
                     if (s.hp <= 0) {
+                        if (s.state !== 'static') s.respawnAt = now + 4000;
                         sceneExplosions.push({x: s.x, y: s.y, r: 5, maxR: 40});
                     }
                 }
@@ -696,8 +813,9 @@ const CONFIG = {
         }
     }
 
-    function drawShip(ctx, ship) {
+    function drawShip(ctx, ship, opacity = 1) {
         ctx.save();
+        ctx.globalAlpha *= opacity;
         ctx.translate(ship.x, ship.y);
         ctx.rotate(ship.angle);
         
@@ -743,7 +861,17 @@ const CONFIG = {
         hyperspaceCanvas.width = window.innerWidth;
         hyperspaceCanvas.height = window.innerHeight;
     }
-    window.addEventListener('resize', resizeHyperspace);
+
+    function scheduleViewportResize() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            CONFIG.isMobile = window.innerWidth < 768;
+            resizeHyperspace();
+            if (battleInitialized) resizeBattleScenes();
+        }, 120);
+    }
+
+    window.addEventListener('resize', scheduleViewportResize);
     resizeHyperspace();
 
     function updateHomeButton(sceneId) {
@@ -764,8 +892,8 @@ const CONFIG = {
 
         hyperspaceCanvas.style.opacity = '1';
         let t = 0;
-        const centerX = hyperspaceCanvas.width / 2;
-        const centerY = hyperspaceCanvas.height / 2;
+        let previousTime = null;
+        let destinationShown = false;
         const lines = Array.from({length: 150}, () => ({
             angle: Math.random() * Math.PI * 2,
             dist: Math.random() * 50,
@@ -773,19 +901,27 @@ const CONFIG = {
             len: 10 + Math.random() * 30
         }));
 
-        function animate() {
+        function animate(timestamp) {
+            const deltaSeconds = previousTime === null
+                ? 0
+                : Math.min((timestamp - previousTime) / 1000, 0.05);
+            previousTime = timestamp;
+            const frameScale = deltaSeconds * 60;
+            t += 0.05 * frameScale;
+            const centerX = hyperspaceCanvas.width / 2;
+            const centerY = hyperspaceCanvas.height / 2;
+
             hCtx.fillStyle = 'black';
             hCtx.fillRect(0,0,hyperspaceCanvas.width, hyperspaceCanvas.height);
-            t += 0.05;
 
             hCtx.strokeStyle = 'white';
             hCtx.lineWidth = 2;
             lines.forEach(l => {
-                l.dist += l.speed * t;
+                l.dist += l.speed * t * frameScale;
                 const x1 = centerX + Math.cos(l.angle) * l.dist;
                 const y1 = centerY + Math.sin(l.angle) * l.dist;
-                const x2 = centerX + Math.cos(l.angle) * (l.dist + l.len * t);
-                const y2 = centerY + Math.sin(l.angle) * (l.dist + l.len * t);
+                const x2 = centerX + Math.cos(l.angle) * (l.dist + l.len * t * frameScale);
+                const y2 = centerY + Math.sin(l.angle) * (l.dist + l.len * t * frameScale);
                 hCtx.beginPath(); hCtx.moveTo(x1, y1); hCtx.lineTo(x2, y2); hCtx.stroke();
             });
 
@@ -794,7 +930,8 @@ const CONFIG = {
                 hCtx.fillRect(0,0,hyperspaceCanvas.width, hyperspaceCanvas.height);
             }
 
-            if (t > 2.5) {
+            if (t > 2.5 && !destinationShown) {
+                destinationShown = true;
                 switchScene(sceneId);
                 document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
             }
@@ -805,7 +942,7 @@ const CONFIG = {
             }
             requestAnimationFrame(animate);
         }
-        animate();
+        requestAnimationFrame(animate);
     }
 
     function switchScene(sceneId) {
@@ -1289,7 +1426,16 @@ const CONFIG = {
       flashOut();
     }
 
+    function initBattleButtons() {
+      const battleGrid = document.querySelector('.battle-grid-wrapper');
+      battleGrid.addEventListener('click', event => {
+        const button = event.target.closest('.action-btn');
+        if (button && battleGrid.contains(button)) fireRebelLaser(button);
+      });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       initSaberButtons();
       initContactForm();
+      initBattleButtons();
     });
