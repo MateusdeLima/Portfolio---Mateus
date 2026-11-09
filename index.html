@@ -4,7 +4,7 @@
 <title>Mateus de Lima Silva - Full Stack Developer</title>
 <link rel="icon" type="image/png" href="Imagens/Emblema%20da%20Resist%C3%AAncia%20em%20Vermelho%20Gradiente.png"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;icon_names=arrow_forward,close,extension,mail,menu,person,smart_toy,terminal,volume_off,volume_up&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;icon_names=arrow_forward,close,extension,mail,menu,person,smart_toy,terminal&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Orbitron:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
 <script src="assets/js/tailwind-config.js"></script>
@@ -34,14 +34,6 @@
 </div>
 </div>
 <canvas id="hyperspace-canvas"></canvas>
-<div class="targeting-reticle" id="targeting-reticle" aria-hidden="true">
-  <span class="targeting-reticle-ring"></span>
-  <span class="targeting-reticle-center"></span>
-  <span class="targeting-reticle-crosshair targeting-reticle-crosshair-top"></span>
-  <span class="targeting-reticle-crosshair targeting-reticle-crosshair-right"></span>
-  <span class="targeting-reticle-crosshair targeting-reticle-crosshair-bottom"></span>
-  <span class="targeting-reticle-crosshair targeting-reticle-crosshair-left"></span>
-</div>
 <header class="fixed top-0 w-full border-b border-primary-container/30 bg-surface-dim/80 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.5)] z-50">
 <div class="header-inner flex justify-between items-center w-full px-6 py-4 z-50">
 <div class="flex items-center gap-3 text-primary ml-16 md:ml-0">
@@ -82,7 +74,7 @@
 <span class="w-2 h-2 rounded-full bg-secondary-container shadow-[0_0_8px_rgba(239,165,0,0.8)]"></span>
 <span class="font-label-caps text-label-caps text-on-surface-variant" data-i18n="hero.status">SYSTEM_ONLINE // STATUS: READY</span>
 </div>
-<h1 class="hero-name mb-4" tabindex="-1" data-decode>
+<h1 class="hero-name mb-4" tabindex="-1">
                     Mateus de Lima Silva
                 </h1>
 <p class="font-headline-md text-headline-md text-primary mb-8 font-mono">
@@ -120,10 +112,6 @@
   </div>
   <canvas class="saber-cut-canvas"></canvas>
 </div>
-<button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="false">
-  <span class="material-symbols-outlined" data-icon="volume_off" aria-hidden="true">volume_off</span>
-  <span data-i18n="sound.enable">Enable sound</span>
-</button>
 </div>
 </div>
 </section>
@@ -139,8 +127,8 @@
 </div>
 <div class="md:col-span-7 space-y-8 p-8 border border-outline-variant/30 bg-surface-container/40 backdrop-blur-lg shadow-[0_0_30px_rgba(0,0,0,0.5)]">
 <h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-3 border-b border-outline-variant/30 pb-4">
-<span class="material-symbols-outlined text-primary-container" data-icon="person" aria-hidden="true">person</span>
-                        <span data-i18n="about.heading" data-decode>PROFILE DATA</span>
+<span class="material-symbols-outlined text-primary-container" data-icon="person">person</span>
+                        <span data-i18n="about.heading">PROFILE DATA</span>
                     </h2>
 <p class="font-body-base text-body-base text-on-surface-variant" data-i18n="about.paragraph1">
                         Graduated in Analysis and Systems Development. Passionate about building robust, scalable applications from the ground up. I thrive in environments that challenge me to solve complex architectural problems using modern web technologies.
@@ -189,7 +177,7 @@
 </div>
 </section>
 <section class="py-24 px-4 md:px-margin max-w-container-max mx-auto relative z-10" id="pro-projects">
-  <h2 class="font-display-lg text-4xl text-on-surface text-center mb-12" data-i18n="arsenal.heading" data-decode>PROJECT ARSENAL</h2>
+  <h2 class="font-display-lg text-4xl text-on-surface text-center mb-12" data-i18n="arsenal.heading">PROJECT ARSENAL</h2>
   
   <svg class="imperial-symbol-definitions" aria-hidden="true" focusable="false"><symbol id="imperial-tie" viewBox="0 0 120 100">
             <!-- Left Wing -->
@@ -227,12 +215,12 @@
 
     <div class="imperial-fleet-grid">
       <div class="imperial-ship-card" data-ship-id="1">
-        <span class="card-ref" data-decode>REF-0822</span>
+        <span class="card-ref">REF-0822</span>
         <div class="ship-silhouette destroyer">
           <svg viewBox="0 0 120 100" aria-hidden="true" focusable="false"><use href="#imperial-tie"></use></svg>
         </div>
         <div class="ship-project-info">
-          <h3 class="project-name" data-decode>Shopee Page Control</h3>
+          <h3 class="project-name">Shopee Page Control</h3>
           <p class="project-desc" data-i18n="projects.shopee">Corporate system for managing employee absences, time tracking, and time-bank balances, actively used by Shopee associates and agents.</p>
           <div class="project-tags">
             <span class="tag">Next.js</span>
@@ -247,12 +235,12 @@
       </div>
       
       <div class="imperial-ship-card" data-ship-id="2">
-        <span class="card-ref" data-decode>REF-0924</span>
+        <span class="card-ref">REF-0924</span>
         <div class="ship-silhouette destroyer">
           <svg viewBox="0 0 120 100" aria-hidden="true" focusable="false"><use href="#imperial-tie"></use></svg>
         </div>
         <div class="ship-project-info">
-          <h3 class="project-name" data-decode>True iPhones Management System</h3>
+          <h3 class="project-name">True iPhones Management System</h3>
           <p class="project-desc" data-i18n="projects.true">Production system for financial management, receipts, inventory, customers, sales, warranties, and cash flow at True iPhones.</p>
           <div class="project-tags">
             <span class="tag">React</span>
@@ -267,12 +255,12 @@
       </div>
       
       <div class="imperial-ship-card" data-ship-id="3">
-        <span class="card-ref" data-decode>REF-1041</span>
+        <span class="card-ref">REF-1041</span>
         <div class="ship-silhouette destroyer">
           <svg viewBox="0 0 120 100" aria-hidden="true" focusable="false"><use href="#imperial-tie"></use></svg>
         </div>
         <div class="ship-project-info">
-          <h3 class="project-name" data-decode>Casarão Ipiranga</h3>
+          <h3 class="project-name">Casarão Ipiranga</h3>
           <p class="project-desc" data-i18n="projects.casarao">Website showcasing apartments available for short-term rental at Casarão Ipiranga.</p>
           <div class="project-tags">
             <span class="tag">TypeScript</span>
@@ -285,12 +273,12 @@
         </div>
       </div>
       <div class="imperial-ship-card" data-ship-id="4">
-        <span class="card-ref" data-decode>REF-1187</span>
+        <span class="card-ref">REF-1187</span>
         <div class="ship-silhouette destroyer">
           <svg viewBox="0 0 120 100" aria-hidden="true" focusable="false"><use href="#imperial-tie"></use></svg>
         </div>
         <div class="ship-project-info">
-          <h3 class="project-name" data-decode>Ingrid Lemos Fitness Landing Page</h3>
+          <h3 class="project-name">Ingrid Lemos Fitness Landing Page</h3>
           <p class="project-desc" data-i18n="projects.ingrid">High-conversion, responsive landing page for personal trainer and fitness consultant Ingrid Lemos.</p>
           <div class="project-tags">
             <span class="tag">React</span>
@@ -401,12 +389,12 @@
 </section>
 <section class="py-24 px-4 md:px-margin max-w-container-max mx-auto relative z-10" id="study-projects">
   <div class="archives-layout">
-    <h2 class="font-display-lg text-4xl text-on-surface text-center archives-title" data-i18n="archives.heading" data-decode>ARCHIVES</h2>
+    <h2 class="font-display-lg text-4xl text-on-surface text-center archives-title" data-i18n="archives.heading">ARCHIVES</h2>
     <div class="archive-terminal">
       <div class="archive-terminal-heading">
         <div>
           <p class="archive-eyebrow" data-i18n="archives.eyebrow">GALACTIC DATA VAULT // ACCESS GRANTED</p>
-          <h3 data-i18n="archives.files" data-decode>RECOVERED PROJECT FILES</h3>
+          <h3 data-i18n="archives.files">RECOVERED PROJECT FILES</h3>
         </div>
         <span class="archive-terminal-status"><span></span> <span data-i18n="archives.status">4 FILES ONLINE</span></span>
       </div>
@@ -414,7 +402,7 @@
         <a class="archive-file" href="https://github.com/MateusdeLima/bot_proibido_discord" target="_blank" rel="noopener noreferrer">
           <div class="archive-file-topline">
             <span class="archive-file-type"><span class="material-symbols-outlined" aria-hidden="true">smart_toy</span> <span data-i18n="archives.bot">DISCORD BOT</span></span>
-            <span class="archive-file-id" data-decode>FILE_01</span>
+            <span class="archive-file-id">FILE_01</span>
           </div>
           <h4>Bot_proibido_discord</h4>
           <p data-i18n="archives.botDescription">A fully functional Python bot that identifies prohibited Shopee products. Already used by Shopee agents.</p>
@@ -423,7 +411,7 @@
         <a class="archive-file" href="https://github.com/MateusdeLima/Super-extensao-GRM-AI-Version" target="_blank" rel="noopener noreferrer">
           <div class="archive-file-topline">
             <span class="archive-file-type"><span class="material-symbols-outlined" aria-hidden="true">extension</span> <span data-i18n="archives.extension">CHROME EXTENSION</span></span>
-            <span class="archive-file-id" data-decode>FILE_02</span>
+            <span class="archive-file-id">FILE_02</span>
           </div>
           <h4>Super-extensao-GRM-AI-Version</h4>
           <p data-i18n="archives.grmDescription">JavaScript automations and AI-assisted task analysis, built and used by agents in their daily workflow.</p>
@@ -432,7 +420,7 @@
         <a class="archive-file" href="https://github.com/MateusdeLima/ITEM_LEVEL_v17_corrigido" target="_blank" rel="noopener noreferrer">
           <div class="archive-file-topline">
             <span class="archive-file-type"><span class="material-symbols-outlined" aria-hidden="true">extension</span> <span data-i18n="archives.extension">CHROME EXTENSION</span></span>
-            <span class="archive-file-id" data-decode>FILE_03</span>
+            <span class="archive-file-id">FILE_03</span>
           </div>
           <h4>ITEM_LEVEL_v17_corrigido</h4>
           <p data-i18n="archives.itemDescription">JavaScript extension that automates AI task analysis, reaching 92% analysis accuracy and supporting agents at work.</p>
@@ -441,7 +429,7 @@
         <a class="archive-file" href="https://github.com/MateusdeLima/Bot_SOS_GRM_Discord_2" target="_blank" rel="noopener noreferrer">
           <div class="archive-file-topline">
             <span class="archive-file-type"><span class="material-symbols-outlined" aria-hidden="true">smart_toy</span> <span data-i18n="archives.bot">DISCORD BOT</span></span>
-            <span class="archive-file-id" data-decode>FILE_04</span>
+            <span class="archive-file-id">FILE_04</span>
           </div>
           <h4>Bot_SOS_GRM_Discord_2</h4>
           <p data-i18n="archives.sosBotDescription">Discord bot used by Shopee agents to answer SOP questions and provide examples of KW (keyword) analysis.</p>
@@ -549,7 +537,7 @@
 </section>
 <section class="py-24 px-4 md:px-margin max-w-container-max mx-auto relative z-10" id="contact">
 <div class="contact-form-panel max-w-xl mx-auto border border-outline-variant/50 bg-surface-container-low/90 p-8 backdrop-blur-xl">
-<h2 class="text-2xl font-['Orbitron'] text-primary mb-8 text-center uppercase tracking-widest" data-i18n="contact.heading" data-decode>Open Comm-Link</h2>
+<h2 class="text-2xl font-['Orbitron'] text-primary mb-8 text-center uppercase tracking-widest" data-i18n="contact.heading">Open Comm-Link</h2>
 <form class="space-y-6" id="contact-form">
 <div class="contact-field-wrap">
 <label class="block text-xs font-['Space_Grotesk'] text-primary-container uppercase tracking-tighter mb-2" for="contact-subject" data-i18n="contact.subject">Proposal Subject</label>

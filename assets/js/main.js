@@ -8,8 +8,6 @@ const TRANSLATIONS = {
         'nav.label': 'Main navigation',
         'menu.open': 'Open navigation menu',
         'menu.close': 'Close navigation menu',
-        'sound.enable': 'Enable sound',
-        'sound.disable': 'Disable sound',
         'hero.status': 'SYSTEM_ONLINE // STATUS: READY',
         'hero.role': '> Full Stack Developer | Systems Analysis and Development',
         'hero.projects': 'View Projects',
@@ -80,8 +78,6 @@ const TRANSLATIONS = {
         'nav.label': 'Navegação principal',
         'menu.open': 'Abrir menu de navegação',
         'menu.close': 'Fechar menu de navegação',
-        'sound.enable': 'Ativar efeitos sonoros',
-        'sound.disable': 'Desativar efeitos sonoros',
         'hero.status': 'SISTEMA_ONLINE // STATUS: PRONTO',
         'hero.role': '> Desenvolvedor Full Stack | Análise e Desenvolvimento de Sistemas',
         'hero.projects': 'Ver Projetos',
@@ -146,250 +142,6 @@ const TRANSLATIONS = {
 };
 
 let currentLanguage = 'en';
-let phaseFiveInitialized = false;
-let decodedTextObserver = null;
-let soundEnabled = false;
-let audioContext = null;
-const decodedTextStates = new WeakMap();
-const DECODE_CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-/';
-const finePointerQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
-let pointerEffectsActive = false;
-let pointerFrameId = null;
-let latestPointerX = 0;
-let latestPointerY = 0;
-
-function decodeText(element) {
-    const text = element.textContent.trim();
-    const previousState = decodedTextStates.get(element);
-    if (!text || (previousState && previousState.text === text && (previousState.complete || previousState.frameId !== null))) {
-        return;
-    }
-
-    if (previousState && previousState.frameId !== null) {
-        cancelAnimationFrame(previousState.frameId);
-    }
-
-    const heading = element.closest('h1, h2, h3, h4, h5, h6');
-    const accessibleElement = heading || element;
-    accessibleElement.setAttribute('aria-label', text);
-    if (element !== accessibleElement) element.setAttribute('aria-hidden', 'true');
-
-    const state = { text, frameId: null, complete: false };
-    decodedTextStates.set(element, state);
-
-    if (reducedMotionQuery.matches) {
-        element.textContent = text;
-        state.complete = true;
-        return;
-    }
-
-    const characters = Array.from(text);
-    let startTime = null;
-
-    function renderFrame(timestamp) {
-        if (startTime === null) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / 620, 1);
-        const revealedCharacters = Math.floor(progress * characters.length);
-
-        element.textContent = characters.map((character, index) => {
-            if (/\s/.test(character) || index < revealedCharacters) return character;
-            return DECODE_CHARACTERS[Math.floor(Math.random() * DECODE_CHARACTERS.length)];
-        }).join('');
-
-        if (progress < 1) {
-            state.frameId = requestAnimationFrame(renderFrame);
-        } else {
-            element.textContent = text;
-            state.frameId = null;
-            state.complete = true;
-        }
-    }
-
-    state.frameId = requestAnimationFrame(renderFrame);
-}
-
-function refreshDecodedText() {
-    if (!phaseFiveInitialized) return;
-
-    document.querySelectorAll('[data-decode]').forEach(element => {
-        const text = element.textContent.trim();
-        const state = decodedTextStates.get(element);
-        if (state && state.text === text && (state.complete || state.frameId !== null)) return;
-        if (decodedTextObserver) decodedTextObserver.observe(element);
-        else decodeText(element);
-    });
-}
-
-function updateSoundToggle() {
-    const toggle = document.getElementById('sound-toggle');
-    if (!toggle) return;
-
-    const translationKey = soundEnabled ? 'sound.disable' : 'sound.enable';
-    const translation = TRANSLATIONS[currentLanguage][translationKey];
-    toggle.setAttribute('aria-pressed', String(soundEnabled));
-    toggle.setAttribute('aria-label', translation);
-    toggle.querySelector('[data-i18n]').textContent = translation;
-    const icon = toggle.querySelector('[data-icon]');
-    icon.dataset.icon = soundEnabled ? 'volume_up' : 'volume_off';
-    icon.textContent = icon.dataset.icon;
-}
-
-function playSynthSound(effect) {
-    if (!soundEnabled || !audioContext || audioContext.state !== 'running') return;
-
-    const now = audioContext.currentTime;
-    const settings = {
-        saber: { type: 'sawtooth', start: 520, end: 130, duration: 0.18, volume: 0.035 },
-        blaster: { type: 'square', start: 760, end: 180, duration: 0.12, volume: 0.025 },
-        explosion: { type: 'triangle', start: 180, end: 55, duration: 0.38, volume: 0.055 }
-    }[effect];
-    if (!settings) return;
-
-    const oscillator = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-    oscillator.type = settings.type;
-    oscillator.frequency.setValueAtTime(settings.start, now);
-    oscillator.frequency.exponentialRampToValueAtTime(settings.end, now + settings.duration);
-    gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.exponentialRampToValueAtTime(settings.volume, now + 0.015);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + settings.duration);
-    oscillator.connect(gain);
-    gain.connect(audioContext.destination);
-    oscillator.start(now);
-    oscillator.stop(now + settings.duration);
-}
-
-function activateSoundToggle() {
-    const toggle = document.getElementById('sound-toggle');
-    const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContextConstructor) {
-        toggle.disabled = true;
-        toggle.title = 'Audio is not supported by this browser.';
-        return;
-    }
-
-    toggle.addEventListener('click', () => {
-        if (!audioContext) audioContext = new AudioContextConstructor();
-        soundEnabled = !soundEnabled;
-        if (soundEnabled && audioContext.state === 'suspended') audioContext.resume();
-        updateSoundToggle();
-    });
-    updateSoundToggle();
-}
-
-function stopDecodedTextAnimations() {
-    document.querySelectorAll('[data-decode]').forEach(element => {
-        const state = decodedTextStates.get(element);
-        if (!state || state.complete || state.frameId === null) return;
-        cancelAnimationFrame(state.frameId);
-        element.textContent = state.text;
-        state.frameId = null;
-        state.complete = true;
-    });
-}
-
-function resetParallaxPosition() {
-    const root = document.documentElement;
-    root.style.setProperty('--parallax-x', '0px');
-    root.style.setProperty('--parallax-y', '0px');
-    root.style.setProperty('--hud-x', '0px');
-    root.style.setProperty('--hud-y', '0px');
-    const reticle = document.getElementById('targeting-reticle');
-    reticle?.classList.remove('is-visible', 'is-interactive');
-}
-
-function handlePointerMove(event) {
-    if (event.pointerType === 'touch') return;
-    latestPointerX = event.clientX;
-    latestPointerY = event.clientY;
-    if (pointerFrameId !== null) return;
-
-    pointerFrameId = requestAnimationFrame(() => {
-        pointerFrameId = null;
-        const root = document.documentElement;
-        const normalizedX = (latestPointerX / window.innerWidth) * 2 - 1;
-        const normalizedY = (latestPointerY / window.innerHeight) * 2 - 1;
-        root.style.setProperty('--parallax-x', `${-normalizedX * 8}px`);
-        root.style.setProperty('--parallax-y', `${-normalizedY * 8}px`);
-        root.style.setProperty('--hud-x', `${normalizedX * 2}px`);
-        root.style.setProperty('--hud-y', `${normalizedY * 2}px`);
-
-        const reticle = document.getElementById('targeting-reticle');
-        reticle.style.transform = `translate3d(${latestPointerX}px, ${latestPointerY}px, 0) translate(-50%, -50%)`;
-        reticle.classList.add('is-visible');
-    });
-}
-
-function handlePointerTarget(event) {
-    const target = event.type === 'pointerout' ? event.relatedTarget : event.target;
-    const reticle = document.getElementById('targeting-reticle');
-    reticle.classList.toggle('is-interactive', target instanceof Element
-        && Boolean(target.closest('a, button, input, textarea, select, [role="button"]')));
-}
-
-function handlePointerLeave() {
-    resetParallaxPosition();
-}
-
-function disablePointerEffects() {
-    if (!pointerEffectsActive) return;
-    pointerEffectsActive = false;
-    document.body.classList.remove('phase-five-pointer-effects');
-    window.removeEventListener('pointermove', handlePointerMove);
-    window.removeEventListener('pointerleave', handlePointerLeave);
-    document.removeEventListener('pointerover', handlePointerTarget);
-    document.removeEventListener('pointerout', handlePointerTarget);
-    if (pointerFrameId !== null) {
-        cancelAnimationFrame(pointerFrameId);
-        pointerFrameId = null;
-    }
-    resetParallaxPosition();
-}
-
-function syncPointerEffects() {
-    const shouldEnable = phaseFiveInitialized
-        && finePointerQuery.matches
-        && window.innerWidth >= 768
-        && !reducedMotionQuery.matches;
-    if (shouldEnable === pointerEffectsActive) return;
-
-    if (!shouldEnable) {
-        disablePointerEffects();
-        return;
-    }
-
-    pointerEffectsActive = true;
-    document.body.classList.add('phase-five-pointer-effects');
-    window.addEventListener('pointermove', handlePointerMove, { passive: true });
-    window.addEventListener('pointerleave', handlePointerLeave);
-    document.addEventListener('pointerover', handlePointerTarget);
-    document.addEventListener('pointerout', handlePointerTarget);
-}
-
-function initPhaseFiveEffects() {
-    if (phaseFiveInitialized) return;
-    phaseFiveInitialized = true;
-
-    if ('IntersectionObserver' in window) {
-        decodedTextObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                decodedTextObserver.unobserve(entry.target);
-                decodeText(entry.target);
-            });
-        }, { threshold: 0.35 });
-    }
-
-    activateSoundToggle();
-    refreshDecodedText();
-    syncPointerEffects();
-    window.addEventListener('resize', syncPointerEffects);
-    if (finePointerQuery.addEventListener) {
-        finePointerQuery.addEventListener('change', syncPointerEffects);
-    } else {
-        finePointerQuery.addListener(syncPointerEffects);
-    }
-}
 
 function applyLanguage(language) {
     const translations = TRANSLATIONS[language];
@@ -403,16 +155,7 @@ function applyLanguage(language) {
 
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const translation = translations[element.dataset.i18n];
-        if (translation !== undefined) {
-            const state = decodedTextStates.get(element);
-            if (state && state.frameId !== null) {
-                cancelAnimationFrame(state.frameId);
-                element.textContent = state.text;
-                state.frameId = null;
-                state.complete = true;
-            }
-            element.textContent = translation;
-        }
+        if (translation !== undefined) element.textContent = translation;
     });
 
     document.querySelectorAll('[data-i18n-attr]').forEach(element => {
@@ -433,8 +176,6 @@ function applyLanguage(language) {
 
     document.getElementById('main-navigation').setAttribute('aria-label', translations['nav.label']);
     updateMobileMenuLabel();
-    updateSoundToggle();
-    refreshDecodedText();
 }
 
 function updateMobileMenuLabel() {
@@ -547,18 +288,28 @@ const CONFIG = {
         const openingText = document.getElementById('opening-text');
         const skipButton = document.getElementById('skip-opening');
         const text = TRANSLATIONS[currentLanguage]['opening.crawl'];
+        let i = 0;
 
         skipButton.hidden = false;
         skipButton.addEventListener('click', startSite, { once: true });
 
+        function typeWriter() {
+            if (siteStarted) return;
+            if (i < text.length) {
+                openingText.textContent += text.charAt(i);
+                i++;
+                openingTimeout = setTimeout(typeWriter, 60);
+            } else {
+                openingTimeout = setTimeout(() => {
+                    openingText.classList.add('fade-out');
+                    runHyperspaceEntrance();
+                }, 1800);
+            }
+        }
+
         const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
         fontsReady.then(() => {
-            if (siteStarted) return;
-            openingText.textContent = text;
-            openingText.addEventListener('animationend', event => {
-                if (!siteStarted && event.animationName === 'opening-crawl') runHyperspaceEntrance();
-            }, { once: true });
-            requestAnimationFrame(() => openingText.classList.add('is-crawling'));
+            if (!siteStarted) typeWriter();
         });
     }
 
@@ -745,13 +496,6 @@ const CONFIG = {
     function handleReducedMotionChange() {
         if (reducedMotionQuery.matches && !siteStarted) {
             startSite();
-        }
-        if (reducedMotionQuery.matches) {
-            stopDecodedTextAnimations();
-            disablePointerEffects();
-        } else {
-            refreshDecodedText();
-            syncPointerEffects();
         }
         if (!battleInitialized) return;
         if (reducedMotionQuery.matches) {
@@ -1347,7 +1091,6 @@ const CONFIG = {
             return;
           }
 
-          playSynthSound('saber');
           const wrapper = this.closest('.saber-btn-wrapper');
           const cutCanvas = wrapper.querySelector('.saber-cut-canvas');
           const scene = this.dataset.scene;
@@ -1606,7 +1349,6 @@ const CONFIG = {
 
     function fireRebelLaser(btn) {
       btn.disabled = true;
-      playSynthSound('blaster');
       const targetUrl = btn.dataset.url;
       const shipId = parseInt(btn.dataset.shipId);
       
@@ -1676,7 +1418,6 @@ const CONFIG = {
     }
 
     function explodeImperialShip(ctx, canvas, card, cx, cy, targetUrl) {
-      playSynthSound('explosion');
       card.style.transition = 'opacity 0.1s ease';
       card.style.opacity = '0';
       card.style.pointerEvents = 'none';
@@ -1805,7 +1546,6 @@ const CONFIG = {
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      initPhaseFiveEffects();
       initSaberButtons();
       initContactForm();
       initBattleButtons();
