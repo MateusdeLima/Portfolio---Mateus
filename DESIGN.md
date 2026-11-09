@@ -103,6 +103,8 @@ The typography strategy focuses on the contrast between "Human" readability and 
 
 **Body Copy:** **Inter** provides a necessary neutral ground. It ensures that complex project descriptions and technical resumes remain highly legible against the dark, high-contrast background. Body text should maintain a generous line height (1.6) to prevent eye strain during long reading sessions.
 
+**Identity exception:** Orbitron is reserved for the Comm-Link form title and saber-button labels to preserve their cinematic control-panel identity. Other interface headings, cards, and technical labels use Space Grotesk.
+
 ## Layout & Spacing
 
 The design system utilizes a **Fixed Grid** model to simulate a desktop terminal or cockpit view. The layout is structured on a 12-column grid within a 1200px container.

@@ -52,9 +52,9 @@ tailwind.config = {
                         "primary-fixed": "#b4ebff"
                     },
                     "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
+                        "DEFAULT": "0",
+                        "lg": "0",
+                        "xl": "0",
                         "full": "9999px"
                     },
                     "spacing": {

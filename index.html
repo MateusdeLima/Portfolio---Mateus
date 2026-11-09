@@ -4,9 +4,9 @@
 <title>Mateus de Lima Silva - Full Stack Developer</title>
 <link rel="icon" type="image/png" href="Imagens/Emblema%20da%20Resist%C3%AAncia%20em%20Vermelho%20Gradiente.png"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;icon_names=arrow_forward,extension,mail,menu,person,smart_toy,terminal&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Orbitron:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
 <script src="assets/js/tailwind-config.js"></script>
 <link rel="stylesheet" href="assets/css/styles.css">
 
@@ -34,26 +34,26 @@
 </div>
 </div>
 <canvas id="hyperspace-canvas"></canvas>
-<header class="fixed top-0 w-full border-b border-cyan-500/30 bg-slate-950/60 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.5)] z-50">
+<header class="fixed top-0 w-full border-b border-primary-container/30 bg-surface-dim/80 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.5)] z-50">
 <div class="header-inner flex justify-between items-center w-full px-6 py-4 z-50">
-<div class="flex items-center gap-3 text-cyan-400 dark:text-cyan-300 ml-16 md:ml-0">
+<div class="flex items-center gap-3 text-primary ml-16 md:ml-0">
 <span class="material-symbols-outlined" data-icon="terminal" data-weight="fill" style="font-variation-settings: 'FILL' 1;">terminal</span>
-<span class="font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold text-xl font-black tracking-tighter text-cyan-400 drop-shadow-[0_0_8px_rgba(0,212,255,0.8)]">COMMAND_CENTER_V1.0</span>
+<span class="font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold text-xl font-black tracking-tighter text-primary drop-shadow-[0_0_8px_rgba(0,212,255,0.8)]">COMMAND_CENTER_V1.0</span>
 </div>
 <nav class="header-navigation hidden md:flex gap-3" id="main-navigation" aria-label="Main navigation">
-<a class="nav-link text-slate-400 hover:text-cyan-200 transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold hidden" id="btn-home" data-scene="scene-hero" data-target="hero" href="#hero">
+<a class="nav-link text-on-surface-variant hover:text-primary transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold hidden" id="btn-home" data-scene="scene-hero" data-target="hero" href="#hero">
     <span data-i18n="nav.home">HOME</span>
 </a>
-<a class="nav-link text-slate-400 hover:text-cyan-200 transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold" data-scene="scene-about" data-target="about" href="#about">
+<a class="nav-link text-on-surface-variant hover:text-primary transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold" data-scene="scene-about" data-target="about" href="#about">
     <span data-i18n="nav.about">ABOUT</span>
 </a>
-<a class="nav-link text-slate-400 hover:text-cyan-200 transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold" data-scene="scene-pro-projects" data-target="pro-projects" href="#pro-projects">
+<a class="nav-link text-on-surface-variant hover:text-primary transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold" data-scene="scene-pro-projects" data-target="pro-projects" href="#pro-projects">
     <span data-i18n="nav.arsenal">ARSENAL</span>
 </a>
-<a class="nav-link text-slate-400 hover:text-cyan-200 transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold" data-scene="scene-study-projects" data-target="study-projects" href="#study-projects">
+<a class="nav-link text-on-surface-variant hover:text-primary transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold" data-scene="scene-study-projects" data-target="study-projects" href="#study-projects">
     <span data-i18n="nav.archives">ARCHIVES</span>
 </a>
-<a class="nav-link text-slate-400 hover:text-cyan-200 transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold" data-scene="scene-contact" data-target="contact" href="#contact">
+<a class="nav-link text-on-surface-variant hover:text-primary transition-colors font-['Space_Grotesk'] tracking-[0.2em] uppercase text-xs font-bold" data-scene="scene-contact" data-target="contact" href="#contact">
     <span data-i18n="nav.contact">COMM-LINK</span>
 </a>
 <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch page to Portuguese" aria-pressed="false" data-current-language="en">
@@ -62,15 +62,15 @@
   <span class="language-option" data-language-option="pt">PT</span>
 </button>
 </nav>
-<button class="mobile-menu-toggle md:hidden text-cyan-400 dark:text-cyan-300" id="mobile-menu-toggle" type="button" aria-controls="main-navigation" aria-expanded="false" aria-label="Open navigation menu">
+<button class="mobile-menu-toggle md:hidden text-primary" id="mobile-menu-toggle" type="button" aria-controls="main-navigation" aria-expanded="false" aria-label="Open navigation menu">
 <span class="material-symbols-outlined" data-icon="menu">menu</span>
 </button>
 </div>
 </header>
 <main class="pt-24 pb-20 content-layer">
 <section class="min-h-[80vh] flex flex-col justify-center items-center text-center px-4 md:px-margin relative" id="hero">
-<div class="max-w-container-max mx-auto w-full z-10 space-y-8 bg-surface-dim/30 p-8 rounded-2xl backdrop-blur-sm border border-cyan-500/10 shadow-[0_0_50px_rgba(0,212,255,0.05)]">
-<div class="inline-flex items-center gap-2 px-4 py-2 border border-outline-variant/50 rounded-full bg-surface-container-low/50 backdrop-blur-md mb-6">
+<div class="max-w-container-max mx-auto w-full z-10 space-y-8 bg-surface-dim/30 p-8 backdrop-blur-sm border border-primary-container/10 shadow-[0_0_50px_rgba(0,212,255,0.05)]">
+<div class="inline-flex items-center gap-2 px-4 py-2 border border-outline-variant/50 bg-surface-container-low/50 backdrop-blur-md mb-6">
 <span class="w-2 h-2 rounded-full bg-secondary-container shadow-[0_0_8px_rgba(239,165,0,0.8)]"></span>
 <span class="font-label-caps text-label-caps text-on-surface-variant" data-i18n="hero.status">SYSTEM_ONLINE // STATUS: READY</span>
 </div>
@@ -82,14 +82,14 @@
                     <span class="inline-block w-3 h-6 bg-primary ml-1 align-middle opacity-80 animate-pulse"></span>
 </p>
 <div class="flex flex-wrap justify-center gap-3 mb-12">
-<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps rounded backdrop-blur-sm">REACT</span>
-<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps rounded backdrop-blur-sm">NODE.JS</span>
-<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps rounded backdrop-blur-sm">TYPESCRIPT</span>
-<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps rounded backdrop-blur-sm">POSTGRESQL</span>
-<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps rounded backdrop-blur-sm">PYTHON</span>
-<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps rounded backdrop-blur-sm">PHP</span>
-<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps rounded backdrop-blur-sm">MYSQL</span>
-<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps rounded backdrop-blur-sm">BOOTSTRAP</span>
+<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps backdrop-blur-sm">REACT</span>
+<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps backdrop-blur-sm">NODE.JS</span>
+<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps backdrop-blur-sm">TYPESCRIPT</span>
+<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps backdrop-blur-sm">POSTGRESQL</span>
+<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps backdrop-blur-sm">PYTHON</span>
+<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps backdrop-blur-sm">PHP</span>
+<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps backdrop-blur-sm">MYSQL</span>
+<span class="px-3 py-1 border border-primary-container/30 bg-primary-container/10 text-primary font-label-caps text-label-caps backdrop-blur-sm">BOOTSTRAP</span>
 </div>
 <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
 <div class="saber-btn-wrapper">
@@ -121,7 +121,7 @@
 <div class="absolute -inset-1 bg-gradient-to-r from-primary-container to-secondary-container opacity-20 blur-xl group-hover:opacity-40 transition-opacity"></div>
 <div class="relative border border-primary-container/30 bg-surface-container-low/80 backdrop-blur-xl p-2 h-full aspect-square overflow-hidden">
 <div class="absolute top-2 right-2 font-label-caps text-[10px] text-primary-container/70">ID: MLS-88</div>
-<img alt="Profile photo" data-i18n-attr="alt:about.photoAlt" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500 opacity-80" src="assets/images/ChatGPT Image 4 de mai. de 2026, 10_28_18.png"/>
+<img alt="Profile photo" data-i18n-attr="alt:about.photoAlt" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500 opacity-80" src="assets/images/profile.webp" width="1254" height="1254" loading="lazy" decoding="async"/>
 <div class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-background to-transparent"></div>
 </div>
 </div>
@@ -139,35 +139,35 @@
 <div class="pt-2">
 <h3 class="font-label-caps text-label-caps text-primary-container mb-4" data-i18n="about.stack">TECH STACK</h3>
 <ul class="grid grid-cols-4 gap-3" aria-label="Technologies I work with" data-i18n-attr="aria-label:about.technologies">
-<li class="flex flex-col items-center gap-2 rounded border border-primary-container/20 bg-primary-container/5 p-3 text-center">
+<li class="flex flex-col items-center gap-2 border border-primary-container/20 bg-primary-container/5 p-3 text-center">
 <i class="devicon-react-original colored text-3xl" aria-hidden="true"></i>
 <span class="font-label-caps text-[10px] text-on-surface-variant">React</span>
 </li>
-<li class="flex flex-col items-center gap-2 rounded border border-primary-container/20 bg-primary-container/5 p-3 text-center">
+<li class="flex flex-col items-center gap-2 border border-primary-container/20 bg-primary-container/5 p-3 text-center">
 <i class="devicon-nodejs-plain-wordmark colored text-3xl" aria-hidden="true"></i>
 <span class="font-label-caps text-[10px] text-on-surface-variant">Node.js</span>
 </li>
-<li class="flex flex-col items-center gap-2 rounded border border-primary-container/20 bg-primary-container/5 p-3 text-center">
+<li class="flex flex-col items-center gap-2 border border-primary-container/20 bg-primary-container/5 p-3 text-center">
 <i class="devicon-typescript-plain colored text-3xl" aria-hidden="true"></i>
 <span class="font-label-caps text-[10px] text-on-surface-variant">TypeScript</span>
 </li>
-<li class="flex flex-col items-center gap-2 rounded border border-primary-container/20 bg-primary-container/5 p-3 text-center">
+<li class="flex flex-col items-center gap-2 border border-primary-container/20 bg-primary-container/5 p-3 text-center">
 <i class="devicon-javascript-plain colored text-3xl" aria-hidden="true"></i>
 <span class="font-label-caps text-[10px] text-on-surface-variant">JavaScript</span>
 </li>
-<li class="flex flex-col items-center gap-2 rounded border border-primary-container/20 bg-primary-container/5 p-3 text-center">
+<li class="flex flex-col items-center gap-2 border border-primary-container/20 bg-primary-container/5 p-3 text-center">
 <i class="devicon-python-plain colored text-3xl" aria-hidden="true"></i>
 <span class="font-label-caps text-[10px] text-on-surface-variant">Python</span>
 </li>
-<li class="flex flex-col items-center gap-2 rounded border border-primary-container/20 bg-primary-container/5 p-3 text-center">
+<li class="flex flex-col items-center gap-2 border border-primary-container/20 bg-primary-container/5 p-3 text-center">
 <i class="devicon-php-plain colored text-3xl" aria-hidden="true"></i>
 <span class="font-label-caps text-[10px] text-on-surface-variant">PHP</span>
 </li>
-<li class="flex flex-col items-center gap-2 rounded border border-primary-container/20 bg-primary-container/5 p-3 text-center">
+<li class="flex flex-col items-center gap-2 border border-primary-container/20 bg-primary-container/5 p-3 text-center">
 <i class="devicon-mysql-plain-wordmark colored text-3xl" aria-hidden="true"></i>
 <span class="font-label-caps text-[10px] text-on-surface-variant">MySQL</span>
 </li>
-<li class="flex flex-col items-center gap-2 rounded border border-primary-container/20 bg-primary-container/5 p-3 text-center">
+<li class="flex flex-col items-center gap-2 border border-primary-container/20 bg-primary-container/5 p-3 text-center">
 <i class="devicon-postgresql-plain-wordmark colored text-3xl" aria-hidden="true"></i>
 <span class="font-label-caps text-[10px] text-on-surface-variant">PostgreSQL</span>
 </li>
@@ -179,13 +179,7 @@
 <section class="py-24 px-4 md:px-margin max-w-container-max mx-auto relative z-10" id="pro-projects">
   <h2 class="font-display-lg text-4xl text-on-surface text-center mb-12" data-i18n="arsenal.heading">PROJECT ARSENAL</h2>
   
-  <div class="battle-grid-wrapper">
-    <canvas id="project-battle-canvas"></canvas>
-    
-    <div class="imperial-fleet-grid">
-      <div class="imperial-ship-card" data-ship-id="1">
-        <div class="ship-silhouette destroyer">
-          <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <svg class="imperial-symbol-definitions" aria-hidden="true" focusable="false"><symbol id="imperial-tie" viewBox="0 0 120 100">
             <!-- Left Wing -->
             <polygon points="15,10 30,10 30,90 15,90" fill="#111" stroke="#555" stroke-width="1.5"/>
             <line x1="22.5" y1="10" x2="22.5" y2="90" stroke="#333" stroke-width="1"/>
@@ -215,7 +209,15 @@
             
             <!-- Top Hatch -->
             <path d="M 50 30 Q 60 25 70 30" fill="none" stroke="#555" stroke-width="2"/>
-          </svg>
+          </symbol></svg>
+  <div class="battle-grid-wrapper">
+    <canvas id="project-battle-canvas"></canvas>
+
+    <div class="imperial-fleet-grid">
+      <div class="imperial-ship-card" data-ship-id="1">
+        <span class="card-ref">REF-0822</span>
+        <div class="ship-silhouette destroyer">
+          <svg viewBox="0 0 120 100" aria-hidden="true" focusable="false"><use href="#imperial-tie"></use></svg>
         </div>
         <div class="ship-project-info">
           <h3 class="project-name">Shopee Page Control</h3>
@@ -233,38 +235,9 @@
       </div>
       
       <div class="imperial-ship-card" data-ship-id="2">
+        <span class="card-ref">REF-0924</span>
         <div class="ship-silhouette destroyer">
-          <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-            <!-- Left Wing -->
-            <polygon points="15,10 30,10 30,90 15,90" fill="#111" stroke="#555" stroke-width="1.5"/>
-            <line x1="22.5" y1="10" x2="22.5" y2="90" stroke="#333" stroke-width="1"/>
-            
-            <!-- Right Wing -->
-            <polygon points="90,10 105,10 105,90 90,90" fill="#111" stroke="#555" stroke-width="1.5"/>
-            <line x1="97.5" y1="10" x2="97.5" y2="90" stroke="#333" stroke-width="1"/>
-
-            <!-- Pylons -->
-            <polygon points="30,42 90,42 90,58 30,58" fill="#222" stroke="#444" stroke-width="1"/>
-            <line x1="30" y1="50" x2="90" y2="50" stroke="#111" stroke-width="2"/>
-            
-            <!-- Central Pod -->
-            <circle cx="60" cy="50" r="22" fill="#333" stroke="#666" stroke-width="1.5"/>
-            <circle cx="60" cy="50" r="14" fill="#111" stroke="#444" stroke-width="1.5"/>
-            
-            <!-- Cockpit Window Webbing -->
-            <line x1="60" y1="36" x2="60" y2="64" stroke="#555" stroke-width="2"/>
-            <line x1="46" y1="50" x2="74" y2="50" stroke="#555" stroke-width="2"/>
-            <line x1="50" y1="40" x2="70" y2="60" stroke="#555" stroke-width="1.5"/>
-            <line x1="50" y1="60" x2="70" y2="40" stroke="#555" stroke-width="1.5"/>
-            <circle cx="60" cy="50" r="5" fill="#222" stroke="#444" stroke-width="1"/>
-            
-            <!-- Chin Blasters -->
-            <circle cx="54" cy="70" r="2.5" fill="#ff2222" filter="drop-shadow(0 0 3px #ff0000)"/>
-            <circle cx="66" cy="70" r="2.5" fill="#ff2222" filter="drop-shadow(0 0 3px #ff0000)"/>
-            
-            <!-- Top Hatch -->
-            <path d="M 50 30 Q 60 25 70 30" fill="none" stroke="#555" stroke-width="2"/>
-          </svg>
+          <svg viewBox="0 0 120 100" aria-hidden="true" focusable="false"><use href="#imperial-tie"></use></svg>
         </div>
         <div class="ship-project-info">
           <h3 class="project-name">True iPhones Management System</h3>
@@ -282,38 +255,9 @@
       </div>
       
       <div class="imperial-ship-card" data-ship-id="3">
+        <span class="card-ref">REF-1041</span>
         <div class="ship-silhouette destroyer">
-          <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-            <!-- Left Wing -->
-            <polygon points="15,10 30,10 30,90 15,90" fill="#111" stroke="#555" stroke-width="1.5"/>
-            <line x1="22.5" y1="10" x2="22.5" y2="90" stroke="#333" stroke-width="1"/>
-            
-            <!-- Right Wing -->
-            <polygon points="90,10 105,10 105,90 90,90" fill="#111" stroke="#555" stroke-width="1.5"/>
-            <line x1="97.5" y1="10" x2="97.5" y2="90" stroke="#333" stroke-width="1"/>
-
-            <!-- Pylons -->
-            <polygon points="30,42 90,42 90,58 30,58" fill="#222" stroke="#444" stroke-width="1"/>
-            <line x1="30" y1="50" x2="90" y2="50" stroke="#111" stroke-width="2"/>
-            
-            <!-- Central Pod -->
-            <circle cx="60" cy="50" r="22" fill="#333" stroke="#666" stroke-width="1.5"/>
-            <circle cx="60" cy="50" r="14" fill="#111" stroke="#444" stroke-width="1.5"/>
-            
-            <!-- Cockpit Window Webbing -->
-            <line x1="60" y1="36" x2="60" y2="64" stroke="#555" stroke-width="2"/>
-            <line x1="46" y1="50" x2="74" y2="50" stroke="#555" stroke-width="2"/>
-            <line x1="50" y1="40" x2="70" y2="60" stroke="#555" stroke-width="1.5"/>
-            <line x1="50" y1="60" x2="70" y2="40" stroke="#555" stroke-width="1.5"/>
-            <circle cx="60" cy="50" r="5" fill="#222" stroke="#444" stroke-width="1"/>
-            
-            <!-- Chin Blasters -->
-            <circle cx="54" cy="70" r="2.5" fill="#ff2222" filter="drop-shadow(0 0 3px #ff0000)"/>
-            <circle cx="66" cy="70" r="2.5" fill="#ff2222" filter="drop-shadow(0 0 3px #ff0000)"/>
-            
-            <!-- Top Hatch -->
-            <path d="M 50 30 Q 60 25 70 30" fill="none" stroke="#555" stroke-width="2"/>
-          </svg>
+          <svg viewBox="0 0 120 100" aria-hidden="true" focusable="false"><use href="#imperial-tie"></use></svg>
         </div>
         <div class="ship-project-info">
           <h3 class="project-name">Casarão Ipiranga</h3>
@@ -329,25 +273,9 @@
         </div>
       </div>
       <div class="imperial-ship-card" data-ship-id="4">
+        <span class="card-ref">REF-1187</span>
         <div class="ship-silhouette destroyer">
-          <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-            <polygon points="15,10 30,10 30,90 15,90" fill="#111" stroke="#555" stroke-width="1.5"/>
-            <line x1="22.5" y1="10" x2="22.5" y2="90" stroke="#333" stroke-width="1"/>
-            <polygon points="90,10 105,10 105,90 90,90" fill="#111" stroke="#555" stroke-width="1.5"/>
-            <line x1="97.5" y1="10" x2="97.5" y2="90" stroke="#333" stroke-width="1"/>
-            <polygon points="30,42 90,42 90,58 30,58" fill="#222" stroke="#444" stroke-width="1"/>
-            <line x1="30" y1="50" x2="90" y2="50" stroke="#111" stroke-width="2"/>
-            <circle cx="60" cy="50" r="22" fill="#333" stroke="#666" stroke-width="1.5"/>
-            <circle cx="60" cy="50" r="14" fill="#111" stroke="#444" stroke-width="1.5"/>
-            <line x1="60" y1="36" x2="60" y2="64" stroke="#555" stroke-width="2"/>
-            <line x1="46" y1="50" x2="74" y2="50" stroke="#555" stroke-width="2"/>
-            <line x1="50" y1="40" x2="70" y2="60" stroke="#555" stroke-width="1.5"/>
-            <line x1="50" y1="60" x2="70" y2="40" stroke="#555" stroke-width="1.5"/>
-            <circle cx="60" cy="50" r="5" fill="#222" stroke="#444" stroke-width="1"/>
-            <circle cx="54" cy="70" r="2.5" fill="#ff2222" filter="drop-shadow(0 0 3px #ff0000)"/>
-            <circle cx="66" cy="70" r="2.5" fill="#ff2222" filter="drop-shadow(0 0 3px #ff0000)"/>
-            <path d="M 50 30 Q 60 25 70 30" fill="none" stroke="#555" stroke-width="2"/>
-          </svg>
+          <svg viewBox="0 0 120 100" aria-hidden="true" focusable="false"><use href="#imperial-tie"></use></svg>
         </div>
         <div class="ship-project-info">
           <h3 class="project-name">Ingrid Lemos Fitness Landing Page</h3>
@@ -608,20 +536,20 @@
   </div>
 </section>
 <section class="py-24 px-4 md:px-margin max-w-container-max mx-auto relative z-10" id="contact">
-<div class="max-w-xl mx-auto border border-cyan-500/30 bg-slate-900/80 p-8 rounded-2xl backdrop-blur-xl">
-<h2 class="text-2xl font-['Orbitron'] text-cyan-400 mb-8 text-center uppercase tracking-widest" data-i18n="contact.heading">Open Comm-Link</h2>
+<div class="contact-form-panel max-w-xl mx-auto border border-outline-variant/50 bg-surface-container-low/90 p-8 backdrop-blur-xl">
+<h2 class="text-2xl font-['Orbitron'] text-primary mb-8 text-center uppercase tracking-widest" data-i18n="contact.heading">Open Comm-Link</h2>
 <form class="space-y-6" id="contact-form">
-<div>
-<label class="block text-xs font-['Space_Grotesk'] text-cyan-500 uppercase tracking-tighter mb-2" for="contact-subject" data-i18n="contact.subject">Proposal Subject</label>
-<input class="w-full bg-black/50 border border-cyan-900/50 rounded p-3 text-cyan-200 focus:border-cyan-400 outline-none transition-all" id="contact-subject" name="subject" type="text" maxlength="120" autocomplete="off" required/>
+<div class="contact-field-wrap">
+<label class="block text-xs font-['Space_Grotesk'] text-primary-container uppercase tracking-tighter mb-2" for="contact-subject" data-i18n="contact.subject">Proposal Subject</label>
+<input class="contact-field w-full bg-surface-container-lowest/50 p-3 text-primary outline-none transition-all" id="contact-subject" name="subject" type="text" maxlength="120" autocomplete="off" required/>
 </div>
-<div>
-<label class="block text-xs font-['Space_Grotesk'] text-cyan-500 uppercase tracking-tighter mb-2" for="contact-message" data-i18n="contact.message">Message Body</label>
-<textarea class="w-full bg-black/50 border border-cyan-900/50 rounded p-3 text-cyan-200 focus:border-cyan-400 outline-none transition-all h-32" id="contact-message" name="message" maxlength="5000" required></textarea>
+<div class="contact-field-wrap">
+<label class="block text-xs font-['Space_Grotesk'] text-primary-container uppercase tracking-tighter mb-2" for="contact-message" data-i18n="contact.message">Message Body</label>
+<textarea class="contact-field w-full bg-surface-container-lowest/50 p-3 text-primary outline-none transition-all h-32" id="contact-message" name="message" maxlength="5000" required></textarea>
 </div>
-<div>
-<label class="block text-xs font-['Space_Grotesk'] text-cyan-500 uppercase tracking-tighter mb-2" for="contact-email" data-i18n="contact.email">Your Email (for a reply)</label>
-<input class="w-full bg-black/50 border border-cyan-900/50 rounded p-3 text-cyan-200 focus:border-cyan-400 outline-none transition-all" id="contact-email" name="email" type="email" maxlength="254" autocomplete="email" required/>
+<div class="contact-field-wrap">
+<label class="block text-xs font-['Space_Grotesk'] text-primary-container uppercase tracking-tighter mb-2" for="contact-email" data-i18n="contact.email">Your Email (for a reply)</label>
+<input class="contact-field w-full bg-surface-container-lowest/50 p-3 text-primary outline-none transition-all" id="contact-email" name="email" type="email" maxlength="254" autocomplete="email" required/>
 </div>
 <div class="contact-honeypot" aria-hidden="true">
   <label for="contact-website">Leave this field empty</label>
@@ -693,7 +621,7 @@
 </div>
 </section>
 </main>
-<footer class="w-full py-12 border-t border-cyan-900/20 bg-transparent relative z-10 content-layer">
+<footer class="w-full py-12 border-t border-outline-variant/30 bg-transparent relative z-10 content-layer">
 <div class="max-w-7xl mx-auto flex flex-col items-center justify-center gap-4">
 <div class="footer-social-links flex gap-6 mb-4">
 <a class="footer-social-link footer-linkedin font-['Space_Grotesk'] text-[10px] tracking-[0.3em] uppercase" href="https://www.linkedin.com/in/mateus-de-lima-silva-4b577a211" target="_blank" rel="noopener noreferrer" data-i18n="footer.linkedin">LINKEDIN</a>

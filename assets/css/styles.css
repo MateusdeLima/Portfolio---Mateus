@@ -6,6 +6,22 @@ body.loading-active {
             background-color: #050505;
             color: #e4e1e9;
         }
+
+        #hero > div,
+        #about > .grid > div,
+        .archive-terminal,
+        .imperial-ship-card,
+        .archive-file,
+        .contact-form-panel {
+            clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
+        }
+
+        .imperial-symbol-definitions {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
         
         #scene-container {
             position: fixed;
@@ -62,7 +78,7 @@ body.loading-active {
           border: 1px solid rgba(0, 212, 255, 0.36);
           background: rgba(0, 24, 34, 0.5);
           color: rgba(181, 204, 213, 0.7);
-          font-family: 'Orbitron', sans-serif;
+          font-family: 'Space Grotesk', sans-serif;
           font-size: 10px;
           letter-spacing: 0.08em;
           cursor: pointer;
@@ -218,7 +234,7 @@ body.loading-active {
         }
 
         #opening-text {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 16px;
             color: #00d4ff;
             text-align: center;
@@ -240,7 +256,7 @@ body.loading-active {
             border: 1px solid rgba(0, 212, 255, 0.65);
             background: rgba(0, 24, 34, 0.85);
             color: #c9f8ff;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 11px;
             letter-spacing: 0.08em;
             text-transform: uppercase;
@@ -540,7 +556,6 @@ body.loading-active {
         .imperial-ship-card {
           background: rgba(10, 10, 20, 0.85);
           border: 1px solid rgba(80, 80, 120, 0.4);
-          border-radius: 4px;
           padding: 20px;
           position: relative;
           transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -569,7 +584,7 @@ body.loading-active {
         }
         
         .project-name {
-          font-family: 'Orbitron', sans-serif;
+          font-family: 'Space Grotesk', sans-serif;
           font-size: 13px;
           color: #00d4ff;
           letter-spacing: 0.08em;
@@ -596,8 +611,7 @@ body.loading-active {
           padding: 3px 8px;
           border: 1px solid rgba(0, 180, 255, 0.3);
           color: rgba(0, 200, 255, 0.8);
-          border-radius: 2px;
-          font-family: 'Orbitron', sans-serif;
+          font-family: 'Space Grotesk', sans-serif;
           letter-spacing: 0.06em;
         }
         
@@ -608,7 +622,7 @@ body.loading-active {
         
         .action-btn {
           flex: 1;
-          font-family: 'Orbitron', sans-serif;
+          font-family: 'Space Grotesk', sans-serif;
           font-size: 10px;
           letter-spacing: 0.1em;
           padding: 8px 12px;
@@ -617,6 +631,73 @@ body.loading-active {
           color: #00d4ff;
           cursor: pointer;
           transition: all 0.2s ease;
+          clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+        }
+
+        .saber-btn {
+          clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+        }
+
+        .card-ref {
+          position: absolute;
+          top: 8px;
+          right: 12px;
+          z-index: 1;
+          color: rgba(177, 200, 208, 0.65);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 8px;
+          letter-spacing: 0.1em;
+        }
+
+        .contact-field-wrap {
+          position: relative;
+        }
+
+        #contact .contact-field {
+          display: block;
+          min-height: 44px;
+          border: 0 !important;
+          border-bottom: 1px solid rgba(0, 212, 255, 0.5) !important;
+          border-radius: 0 !important;
+          color: #a8e8ff !important;
+          outline: none;
+        }
+
+        #contact .contact-field:focus {
+          border-bottom-color: #00d4ff !important;
+          box-shadow: 0 1px 0 #00d4ff;
+        }
+
+        #contact .contact-field:focus-visible {
+          outline: none !important;
+          box-shadow: 0 2px 0 #00d4ff;
+        }
+
+        #contact textarea.contact-field {
+          min-height: 8rem;
+          resize: vertical;
+        }
+
+        .contact-field-wrap::after {
+          position: absolute;
+          top: 22px;
+          right: 0;
+          left: 0;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(168, 232, 255, 0.8), transparent);
+          content: '';
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .contact-field-wrap:focus-within::after {
+          animation: contactFieldScan 650ms ease-out 1;
+        }
+
+        @keyframes contactFieldScan {
+          0% { opacity: 0; transform: translateY(0); }
+          20% { opacity: 0.85; }
+          100% { opacity: 0; transform: translateY(calc(100% - 24px)); }
         }
         
         .action-btn:hover {
@@ -666,7 +747,7 @@ body.loading-active {
         }
         
         .rebel-label {
-          font-family: 'Orbitron', sans-serif;
+          font-family: 'Space Grotesk', sans-serif;
           font-size: 9px;
           color: rgba(0, 255, 80, 0.5);
           letter-spacing: 0.1em;
@@ -712,7 +793,7 @@ body {
 .archives-title {
   margin-bottom: 2.5rem;
   color: #e9faff;
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   letter-spacing: 0.16em;
   text-shadow: 0 0 18px rgba(0, 212, 255, 0.45);
 }
@@ -727,6 +808,7 @@ body {
     linear-gradient(145deg, rgba(8, 25, 34, 0.97), rgba(5, 9, 15, 0.96) 65%);
   background-size: 28px 28px, 28px 28px, auto;
   box-shadow: inset 0 0 28px rgba(0, 212, 255, 0.06), 0 0 32px rgba(0, 100, 130, 0.14);
+  clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px);
 }
 
 .archive-terminal::before,
@@ -773,7 +855,7 @@ body {
 .archive-file-id,
 .archive-file-link,
 .archive-droid-caption {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 .archive-eyebrow {
@@ -850,6 +932,7 @@ body {
   color: inherit;
   text-decoration: none;
   transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
 }
 
 .archive-file:hover,
@@ -1004,7 +1087,7 @@ body {
 .comm-link-droid-caption {
   margin: 4px 0 0;
   color: rgba(255, 197, 106, 0.72);
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 8px;
   letter-spacing: 0.16em;
   line-height: 1.7;
