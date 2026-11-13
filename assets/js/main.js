@@ -1040,7 +1040,7 @@ const CONFIG = {
             if (t > 2.5 && !destinationShown) {
                 destinationShown = true;
                 switchScene(sceneId);
-                document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById(targetId)?.scrollIntoView({ behavior: 'instant' });
             }
 
             if (t > 3) {
