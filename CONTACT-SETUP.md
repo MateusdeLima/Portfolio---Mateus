@@ -7,7 +7,7 @@ Esta integração funciona em um site estático e não exige domínio próprio, 
 ## 1. Publique o site na Vercel
 
 1. Importe o repositório do portfólio na [Vercel](https://vercel.com/) ou use o projeto que já está conectado.
-2. Aguarde o deploy e abra o endereço gratuito `*.vercel.app` atribuído ao projeto. Não é necessário comprar um domínio.
+2. A configuração do projeto executa `npm run build` e publica a pasta `dist`; aguarde o deploy e abra o endereço gratuito `*.vercel.app` atribuído ao projeto. Não é necessário comprar um domínio.
 3. Anote o hostname exato exibido na Vercel, por exemplo `meu-portfolio.vercel.app`. Você vai cadastrá-lo no reCAPTCHA. Se testar um deploy de Preview com outro hostname, esse hostname também precisa estar autorizado.
 
 O formulário não enviará mensagens até que as etapas de configuração abaixo sejam concluídas.
@@ -160,13 +160,14 @@ Não é necessário cadastrar variáveis de ambiente na Vercel. O formulário ch
 
 ## Testes locais
 
-Para testar em `localhost`, cadastre `localhost` também nos domínios do reCAPTCHA e sirva a pasta do projeto por HTTP. Com Python instalado, execute no PowerShell, na pasta do projeto:
+Para testar em `localhost`, cadastre `localhost` também nos domínios do reCAPTCHA. No PowerShell, na pasta do projeto, instale as dependências e inicie o servidor Vite:
 
 ```powershell
-py -m http.server 8000
+npm ci
+npm run dev
 ```
 
-Abra `http://localhost:8000`. Não abra o arquivo `index.html` diretamente como `file://`, pois o reCAPTCHA e as chamadas de rede podem não funcionar nesse contexto. Envios feitos localmente são reais e chegam à sua caixa de entrada.
+Abra o endereço local exibido pelo Vite (normalmente `http://localhost:5173`). Não abra o arquivo `index.html` diretamente como `file://`, pois o reCAPTCHA e as chamadas de rede podem não funcionar nesse contexto. Envios feitos localmente são reais e chegam à sua caixa de entrada.
 
 ## Se algo não funcionar
 
